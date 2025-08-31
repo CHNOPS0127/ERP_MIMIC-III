@@ -1,12 +1,12 @@
-# ERP_MIMIC-III: Preprocessing & Tensors for Multimodal ICU LOS Prediction
+# ERP_MIMIC-III: Preprocessing & Modelling for Multimodal ICU LOS Prediction
 
 Codebase for the dissertation **"Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach."**
 
-This repository builds harmonized ICU **time-series** + **static** covariates from **MIMIC-III** and exports padded tensors for baseline, sequence, and multitask models.
+This repository integrates ICU multimodal covariates from **MIMIC-III** through a comprehensive preprocessing pipeline, modelling and evaluate baselines (i.e., logistic regression and random forest), sequence models (i.e., BiLSTM and BiGRU), and a multitask framework across multiple configurations and observation window.
 
 > **Attribution / Public Notice**
 > 
-> The job scripts in this repository are public. If you use or adapt them, please acknowledge **Zhiying Guo** (e.g., "Preprocessing adapted from Zhiying Guo's *ERP_MIMIC-III* pipeline").
+> The job scripts in this repository are public. If you use or adapt them, please acknowledge the authour.
 
 ---
 
@@ -148,6 +148,27 @@ python feature_engineering.py "$ERP_ROOT"
 - `y_mortality_tensor.pt`
 - `y_hourly_tensor.pt`
 - `hour_mask.pt`
+
+---
+
+## Exploratory Data Analysis
+
+The following command:
+- Combine **dynamic time-series data** from per-subject `wide_events.csv` files into a single `dynamic_data_eda.csv`.
+- Ensure required clinical variables are included (adds missing columns as `NaN`).
+- Merge **LOS (Length of Stay)** from `static_data.csv` into the combined dynamic dataset by `ICUSTAY_ID`.
+- Generate plots and summary tables for:
+  - Missingness patterns (static and dynamic data).
+  - LOS and Remaining LOS distributions.
+  - Dynamic variable trajectories (e.g., Heart Rate vs LOS groups).
+  - Statistical associations between static diagnoses/demographics and LOS/mortality.
+
+
+```bash
+python eda.py --data-root "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects" \
+--out-root "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\eda" \
+--combine-wide-events
+```
 
 ---
 
