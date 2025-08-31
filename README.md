@@ -17,7 +17,7 @@ This repository integrates ICU multimodal covariates from **MIMIC-III** through 
 - [Environment Setup](#environment-setup)
 - [Preprocessing Pipeline](#preprocessing-pipeline)
 - [Outputs & Directory Layout](#outputs--directory-layout)
-- [Exploratory Data Analysis](#exploratory--data--analysis)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
 - [Training Scripts (Models)](#training-scripts-models)
 - [Reproducibility & System Notes](#reproducibility--system-notes)
 - [License & Acknowledgments](#license--acknowledgments)
