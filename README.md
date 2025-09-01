@@ -1,11 +1,17 @@
 # ERP_MIMIC-III: Preprocessing & Modelling for Multimodal ICU LOS Prediction
 
-This repository integrates multimodal ICU covariates from MIMIC-III through a reproducible preprocessing pipeline, then models outcomes using baseline classifiers (logistic regression, random forest), sequence models (BiLSTM, BiGRU), and a multitask learning framework. We benchmark performance across varied configurations and observation windows, providing end-to-end training, evaluation, and artefact generation.
+Codebase for the dissertation **Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach**.
 
-**Author ID:** 14158989  
+This repository integrates multimodal ICU covariates from MIMIC-III through a reproducible preprocessing pipeline, then models outcomes using baseline classifiers (logistic regression, random forest), sequence models (BiLSTM, BiGRU), and a multitask learning framework. We benchmark performance across varied configurations and observation windows, providing end-to-end training, evaluation, and artefact generation. Cross-references to the corresponding chapter/section in the dissertation are indicated in parentheses as (§).
+
 **Project:** Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach  
-**Repository:** https://github.com/CHNOPS0127/ERP_MIMIC-III
 
+---
+
+**Attribution**
+> 
+> The job scripts in this repository are public. If you use or adapt them, please acknowledge the authour.
+> 
 ---
 
 ## Table of Contents
@@ -91,10 +97,7 @@ $env:VARMAP = "resources/updated_variable_selection_I.csv"
 
 ### 2.1 MIMIC-III Database Access
 
-All datasets in this dissertation are derived from the MIMIC-III Clinical Database, a large, de-identified intensive care dataset accessible to credentialed users through PhysioNet. Complete bibliographic references are listed in the main paper.
-
-**Data Source:** MIMIC-III Clinical Database v1.4  
-**Access:** https://mimic.physionet.org/  
+All datasets used in this dissertation are derived from the MIMIC-III Clinical Database, a large, de-identified intensive care dataset available to credentialed users via PhysioNet (https://mimic.physionet.org/). Complete bibliographic references are provided in the main paper.
 
 **Required MIMIC-III Files:**
 - `ADMISSIONS.csv`
@@ -127,8 +130,7 @@ ERP_ROOT/
 
 ## 3. Complete Preprocessing Pipeline
 
-- Note 1: References to the corresponding section of the dissertation are indicated in parentheses as (§)
-- Note 2: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
+*N.B. Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.*
 
 ### 3.1 Step 1: Subject Inclusion (§3.2.1)
 
