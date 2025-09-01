@@ -14,9 +14,9 @@ This repository integrates multimodal ICU covariates from MIMIC-III through a re
 2. [Data Access & Prerequisites](#2-data-access--prerequisites)
 3. [Complete Preprocessing Pipeline](#3-complete-preprocessing-pipeline)
 4. [Exploratory Data Analysis Reproduction](#4-exploratory-data-analysis-reproduction)
-5. [Model Implementation & Training](#5-model-implementation--training)
-6. [Evaluation & Results Reproduction](#6-evaluation--results-reproduction)
-7. [Expected Outputs & Verification](#7-expected-outputs--verification)
+5. [Model Implementation & Evaluation](#5-model-implementation--evaluation)
+6. [Results Analysis](#6-results-analysis)
+7. [Expected Outputs](#7-expected-outputs)
 
 ---
 
