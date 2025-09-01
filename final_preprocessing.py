@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""
-Final preprocessing:
-(1) Build listfile.csv from encounter timeseries files + LOS from all_stays.csv
-(2) Combine dynamic files to a unified schema, then impute/encode (GCS + vitals)
-(3) Clean + encode static data
-All outputs go to <raw_root>/preprocessed/
-"""
+
 
 import os
 import argparse
@@ -290,3 +284,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
