@@ -1,4 +1,3 @@
-# TECHNICAL APPENDIX
 # ERP_MIMIC-III: Preprocessing & Modelling for Multimodal ICU LOS Prediction
 
 Codebase for the dissertation **Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach**.
