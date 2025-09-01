@@ -566,6 +566,6 @@ ERP_ROOT/
 
 This technical appendix provides complete instructions for reproducing the multimodal ICU LOS prediction framework. Following these procedures exactly should yield performance metrics within the specified confidence intervals. The modular design allows for replication of individual components or the complete pipeline.
 
-For questions or issues during reproduction, refer to the codebase documentation at https://github.com/CHNOPS0127/ERP_MIMIC-III or verify against the expected outputs listed in Section 7.
+For questions or issues during reproduction, refer to the codebase documentation at https://github.com/CHNOPS0127/ERP_MIMIC-III.
 
 **Estimated Total Runtime:** 12-72 hours depending on hardware configuration and selected models.
