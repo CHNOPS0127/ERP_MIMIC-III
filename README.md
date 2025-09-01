@@ -1,211 +1,381 @@
 # ERP_MIMIC-III: Preprocessing & Modelling for Multimodal ICU LOS Prediction
 
-Codebase for the dissertation **"Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach."**
+This repository integrates multimodal ICU covariates from MIMIC-III through a reproducible preprocessing pipeline, then models outcomes using baseline classifiers (logistic regression, random forest), sequence models (BiLSTM, BiGRU), and a multitask learning framework. We benchmark performance across varied configurations and observation windows, providing end-to-end training, evaluation, and artefact generation.
 
-This repository integrates ICU multimodal covariates from **MIMIC-III** through a comprehensive preprocessing pipeline, modelling and evaluate baselines (i.e., logistic regression and random forest), sequence models (i.e., BiLSTM and BiGRU), and a multitask framework across multiple configurations and observation window.
-
-> **Attribution / Public Notice**
-> 
-> The job scripts in this repository are public. If you use or adapt them, please acknowledge the authour.
+**Author ID:** 14158989  
+**Project:** Multimodal Learning for ICU Length-of-Stay Prediction: A Temporal and Multitasking Approach  
+**Repository:** https://github.com/CHNOPS0127/ERP_MIMIC-III
 
 ---
 
 ## Table of Contents
 
-- [Data Access & Citation](#data-access--citation)
-- [Requirements & Installation](#requirements--installation)
-- [Environment Setup](#environment-setup)
-- [Preprocessing Pipeline](#preprocessing-pipeline)
-- [Outputs & Directory Layout](#outputs--directory-layout)
-- [Exploratory Data Analysis](#exploratory-data-analysis)
-- [Training Scripts (Models)](#training-scripts-models)
-- [Reproducibility & System Notes](#reproducibility--system-notes)
-- [License & Acknowledgments](#license--acknowledgments)
+1. [System Requirements & Environment Setup](#1-system-requirements--environment-setup)
+2. [Data Access & Prerequisites](#2-data-access--prerequisites)
+3. [Complete Preprocessing Pipeline](#3-complete-preprocessing-pipeline)
+4. [Exploratory Data Analysis Reproduction](#4-exploratory-data-analysis-reproduction)
+5. [Model Implementation & Training](#5-model-implementation--training)
+6. [Evaluation & Results Reproduction](#6-evaluation--results-reproduction)
+7. [Expected Outputs & Verification](#7-expected-outputs--verification)
 
 ---
 
-## Data Access & Citation
+## 1. System Requirements & Environment Setup
 
-Datasets used in this dissertation are based on MIMIC-III, a large de-identified ICU database for credentialed users. Full references are included in the main paper.
+### 1.1 Hardware Requirements
 
-**We do not provide the MIMIC-III database.** You must acquire the data yourself from https://mimic.physionet.org/
+- **Memory:** Minimum 32GB RAM recommended for full dataset processing
+- **Storage:** ≥100GB free disk space for MIMIC-III data and intermediate files
+- **GPU:** CUDA-compatible GPU with ≥8GB VRAM recommended (Tesla V100 or equivalent)
+- **CPU:** Multi-core processor (8+ cores recommended)
 
----
+### 1.2 Software Dependencies
 
-## Requirements & Installation
+**Python Version:** 3.9 
 
-### Clone the Repository
+**Core Dependencies:**
+```bash
+numpy>=1.21.0
+pandas>=1.3.0
+torch>=1.9.0
+scikit-learn>=1.0.0
+scipy>=1.7.0
+tqdm>=4.62.0
+pyarrow>=5.0.0  # Optional but recommended for faster I/O
+matplotlib>=3.4.0
+seaborn>=0.11.0
+```
+
+### 1.3 Environment Setup Procedure
 
 ```bash
-# Clone the repository
-git clone https://github.com/<USER_OR_ORG>/ERP_MIMIC-III.git
+# Clone repository
+git clone https://github.com/CHNOPS0127/ERP_MIMIC-III.git
 cd ERP_MIMIC-III
 
-# Create & activate a virtual environment (bash/zsh)
-python -m venv .venv && source .venv/bin/activate
+# Create virtual environment
+python -m venv .venv
 
-# For Windows PowerShell
-# .\.venv\Scripts\Activate.ps1
+# Activate environment
+# Linux/Mac:
+source .venv/bin/activate
+# Windows:
+.\.venv\Scripts\Activate.ps1
+
+# Install dependencies
+pip install numpy pandas tqdm scikit-learn scipy torch pyarrow matplotlib seaborn
 ```
 
-### System Requirements
+### 1.4 Environment Variables Configuration
 
-- **Python**: ≥ 3.9 (tested on 3.9/3.10)
-- **Storage**: Multi-GB CSV processing; recommend ≥100 GB free disk space
-- **Memory**: Ample RAM recommended for large dataset processing
-
-### Package Installation
+Set the following environment variables (critical for reproducibility):
 
 ```bash
-pip install numpy pandas tqdm scikit-learn scipy torch pyarrow
-```
-
-*Note: pyarrow is optional but recommended for faster I/O operations.*
-
----
-
-## Environment Setup
-
-Set the following environment variables (edit paths to match your system):
-
-```bash
-export MIMIC3_ROOT="/path/to/mimic-iii-v1.4"
-export ERP_ROOT="/path/to/erp_mimic"
+export MIMIC3_ROOT="/path/to/mimic-iii-clinical-database-1.4"
+export ERP_ROOT="/path/to/your/working/directory"
 export VARMAP="resources/updated_variable_selection_I.csv"
 ```
 
+**Windows PowerShell:**
+```powershell
+$env:MIMIC3_ROOT = "C:\path\to\mimic-iii-clinical-database-1.4"
+$env:ERP_ROOT = "C:\path\to\your\working\directory"
+$env:VARMAP = "resources/updated_variable_selection_I.csv"
+```
+
 ---
 
-## Preprocessing Pipeline
+## 2. Data Access & Prerequisites
 
-The Subject Inclusion and Events Validation steps are adapted from the MIMIC-III benchmarks (Harutyunyan et al., 2019). Full reference is included in the dissertation.
+### 2.1 MIMIC-III Database Access
 
-### 1. Subject Inclusion (§3.2.1)
+All datasets in this dissertation are derived from the MIMIC-III Clinical Database, a large, de-identified intensive care dataset accessible to credentialed users through PhysioNet. Complete bibliographic references are listed in the main paper.
 
-Takes raw MIMIC-III tables and generates per-subject directories with `stays.csv`, `diagnoses.csv`, and `events.csv`.
+**Data Source:** MIMIC-III Clinical Database v1.4  
+**Access:** https://mimic.physionet.org/  
 
+**Required MIMIC-III Files:**
+- `ADMISSIONS.csv`
+- `PATIENTS.csv`
+- `ICUSTAYS.csv`
+- `CHARTEVENTS.csv`
+- `LABEVENTS.csv`
+- `OUTPUTEVENTS.csv`
+- `NOTEEVENTS.csv`
+- `DIAGNOSES_ICD.csv`
+- `D_ITEMS.csv`
+- `D_LABITEMS.csv`
+- `D_ICD_DIAGNOSES.csv`
+
+### 2.2 Directory Structure Preparation
+
+Create the following directory structure:
+
+```
+ERP_ROOT/
+├── subjects/           # Will contain per-subject directories
+├── preprocessed/       # Final processed data
+│   └── tensor/        # Model-ready tensors
+├── results/           # Model outputs and evaluation
+├── eda/               # EDA outputs
+└── resources/         # Configuration files
+```
+
+---
+
+## 3. Complete Preprocessing Pipeline
+
+Note: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
+
+### 3.1 Step 1: Subject Inclusion
+
+**Objective:** Extract per-subject directories with stays, diagnoses, and events
+
+**Command:**
 ```bash
 python extract_mimic3.py "$MIMIC3_ROOT" "$ERP_ROOT/subjects"
 ```
 
-### 2. Events Validation (§3.2.2)
+**Process Details:**
+- Excludes patients <18 years old
+- Caps age at 90 (HIPAA compliance)
+- Filters unit transfers (FIRST_CAREUNIT ≠ LAST_CAREUNIT)
+- Removes multiple ICU stays per admission
+- Computes AGE = INTIME - DOB
 
-Takes per-subject `events.csv` and generates validated `events.csv` with reconciled `ICUSTAY_ID`s.
+**Expected Outputs:**
+- `$ERP_ROOT/subjects/{SUBJECT_ID}/stays.csv`
+- `$ERP_ROOT/subjects/{SUBJECT_ID}/diagnoses.csv`
+- `$ERP_ROOT/subjects/{SUBJECT_ID}/events.csv`
 
+### 3.2 Step 2: Events Validation
+
+**Objective:** Reconcile ICUSTAY_IDs and clean event timestamps
+
+**Command:**
 ```bash
 python validate_events.py "$ERP_ROOT/subjects"
 ```
 
-### 3. Feature Selection & Data Cleaning (§3.2.3-3.2.4)
+**Process Details:**
+- Validates ADMISSION_ID and ICUSTAY_ID consistency
+- Imputes missing IDs using stays.csv mapping
+- Removes events with unreconcilable identifiers
+- Filters negative hours since ICU admission (~0.75% of events)
 
-Generates integrated `static_data.csv` and unit-standardized, hour-aligned `wide_events.csv` with selected clinical variables.
+**Expected Outputs:**
+- Updated `events.csv` files with validated identifiers
+- Timestamped log of validation statistics
 
+### 3.3 Step 3: Feature Selection
+
+**Objective:** Apply clinically-motivated feature selection
+
+**Command:**
 ```bash
 python feature_selection.py "$ERP_ROOT"
+```
+
+**Key Parameters:**
+- **Vital Signs & Labs:** 28 variables (HR, BP, RR, SpO2, etc.)
+- **Chronic Diagnoses:** 120 ICD-9 conditions (reduced to 24 post-EDA)
+- **Demographics:** 7 variables (age, gender, ethnicity, etc.)
+- **Text Features:** 26 TF-IDF terms from clinical notes
+
+**Item Harmonization:**
+```bash
+export VARMAP="resources/variable_map.csv"
+```
+
+**Expected Outputs:**
+- `$ERP_ROOT/preprocessed/wide_events.csv` (per-subject time series)
+- Feature selection logs and mapping files
+
+### 3.4 Step 4: Data Cleaning & Temporal Alignment
+
+**Objective:** Standardize units and create hourly time grid
+
+**Command:**
+```bash
 python data_cleaning.py "$ERP_ROOT"
 ```
 
-### 4. Final Preprocessing (§3.2.5-3.2.6)
+**Unit Standardization:**
+- Weight: lb, oz → kg
+- Temperature: °F → °C  
+- Pressure: mmHg standardized, etc.
 
-Generates imputed and encoded `dynamic_data.csv`, `static_data.csv`, and `listfile.csv`.
+**Temporal Processing:**
+- Compute hours since ICU admission
+- Floor to hourly bins
+- Aggregate within bins using "last"
 
+**Expected Outputs:**
+- Hour-aligned `wide_events.csv` files
+- Unit conversion logs
+- Missing data pattern summaries
+
+### 3.5 Step 5: Final Preprocessing
+
+**Objective:** Imputation, encoding, and dataset finalization
+
+**Command:**
 ```bash
 python final_preprocessing.py "$ERP_ROOT"
 ```
 
-### 5. Tensor Creation (§3.2.6)
+**Imputation Strategy:**
+1. **Forward filling** within each encounter
+2. **ICU-wide median** for variables without prior values  
+3. **Binary missing masks** to preserve missingness information
 
-Takes final processed data and generates model-ready tensors for sequence models. You may specify the prediction task and time window:
+**Static Data Processing:**
+- Categorical variables: One-hot encoding
+- Ordinal variables (GCS): Ordinal encoding  
+- Continuous variables: Z-score standardization
+- Missing categories encoded as separate classes
 
+**Exclusion Criteria:**
+- ICU stays ≤4 hours (insufficient for robust prediction)
+- Encounters with >95% missing data
+
+**Expected Outputs:**
+- `$ERP_ROOT/preprocessed/dynamic_data.csv`
+- `$ERP_ROOT/preprocessed/static_data.csv`  
+- `$ERP_ROOT/preprocessed/listfile.csv`
+
+### 3.6 Step 6: Tensor Creation
+
+**Objective:** Generate model-ready tensors for sequence models
+
+**Command:**
 ```bash
-python tensor_creation.py "$ERP_ROOT" --task {los,multitask} --time_window {48,72}
+# For single-task LOS prediction (48-hour window)
+python tensor_creation.py "$ERP_ROOT" --task los --time_window 48
+
+# For multitask framework (48-hour window)  
+python tensor_creation.py "$ERP_ROOT" --task multitask --time_window 48
+
+# For 72-hour window
+python tensor_creation.py "$ERP_ROOT" --task los --time_window 72
 ```
 
-### 6. Baseline Feature Engineering
+**LOS Bucketing Scheme:**
+- Bucket 0: 0-1 day
+- Bucket 1: 1-2 days  
+- Bucket 2: 2-3 days
+- Bucket 3: 3-4 days
+- Bucket 4: 4-5 days
+- Bucket 5: 5-7 days
+- Bucket 6: 7-14 days
+- Bucket 7: ≥14 days
 
-Takes the final processed data and generates classical-model feature matrices:
+**Expected Outputs:**
+- `X_padded_tensor_*.pt` - Dynamic sequences [N, T, D]
+- `seq_lengths_*.pt` - Valid sequence lengths [N]  
+- `static_tensor_*.pt` - Static features [N, S]
+- `y_total_class_tensor_*.pt` - LOS bucket labels [N]
+- `icu_id_list_*.pt` - ICU stay identifiers [N]
 
+**Additional for Multitask:**
+- `y_mortality_tensor.pt` - Binary mortality labels [N]
+- `y_hourly_tensor.pt` - Hourly remaining LOS [N, T]
+- `hour_mask.pt` - Valid hour indicators [N, T]
+
+### 3.7 Step 7: Baseline Feature Engineering
+
+**Objective:** Create handcrafted features for traditional ML models
+
+**Command:**
 ```bash
 python feature_engineering.py "$ERP_ROOT"
 ```
 
----
+**Feature Engineering Details:**
+- **Time Windows:** First 10% and 25% of ICU stay
+- **Statistics per Variable:** Mean, std, min, max, AUC, slope, delta, entropy, reversals
+- **Total Features:** 28 variables × 9 statistics × 2 windows = 504 temporal features
+- **Additional:** Static demographics and diagnosis indicators
 
-## Outputs & Directory Layout
-
-### For Baseline Models:
-- `features_lr.csv`
-- `features_rf.csv`
-
-### For Sequence Models:
-- `X_padded_tensor_*.pt`
-- `seq_lengths_*.pt`
-- `static_tensor_*.pt`
-- `y_total_class_tensor_*.pt`
-- `icu_id_list_*.pt`
-
-### Additional for Multitask:
-- `y_mortality_tensor.pt`
-- `y_hourly_tensor.pt`
-- `hour_mask.pt`
+**Expected Outputs:**
+- `features_lr.csv` - RFECV-selected features for logistic regression
+- `features_rf.csv` - Full feature set for random forest
 
 ---
 
-## Exploratory Data Analysis
+## 4. Exploratory Data Analysis
 
-The following command:
-- Combine **dynamic time-series data** from per-subject `wide_events.csv` files into a single `dynamic_data_eda.csv`.
-- Ensure required clinical variables are included (adds missing columns as `NaN`).
-- Merge **LOS (Length of Stay)** from `static_data.csv` into the combined dynamic dataset by `ICUSTAY_ID`.
-- Generate plots and summary tables for:
-  - Missingness patterns (static and dynamic data).
-  - LOS and Remaining LOS distributions.
-  - Dynamic variable trajectories (e.g., Heart Rate vs LOS groups).
-  - Statistical associations between static diagnoses/demographics and LOS/mortality.
+### 4.1 Combined EDA Execution
 
-
+**Command:**
 ```bash
-python eda.py --data-root "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects" \
---out-root "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\eda" \
---combine-wide-events
+python eda.py \
+    --data-root "$ERP_ROOT" \
+    --out-root "$ERP_ROOT/eda" \
+    --combine-wide-events
 ```
 
+**Generated Analyses:**
+1. **Distribution Analysis:** LOS and remaining LOS distributions, bucketed analysis
+2. **Missingness Patterns:** Temporal and variable-wise missing data analysis  
+3. **Trajectory Analysis:** Vital sign trajectories grouped by LOS
+4. **Feature Association:** Early predictors vs. LOS correlation analysis
+5. **Clinical Correlations:** GCS, diagnoses, demographics vs. outcomes
+
 ---
 
-## Training Scripts (Models)
+## 5. Model Implementation & Evaluation
 
-### Baseline Models
+**Procedure:**
+1. **Data Split:** 80% train, 20% test
+2. **Model Selection:** 5-fold stratified GroupKFold on training set
+3. **Hyperparameter Grid:** Learning rate [1e-4, 1e-3, 1e-2], hidden_dim [64, 128, 256]
+4. **Final Training:** Best hyperparameters on full training set
+5. **Test Evaluation:** Single evaluation on held-out test set with boostrap evaluation (N=1000)
 
-Set tensor shortcuts for convenience:
+### 5.1 Baseline Models
 
+#### 5.1.1 Logistic Regression
+
+**Command:**
+```bash
+python logistic_regression.py "$ERP_ROOT"
+```
+
+**Implementation Details:**
+- **Algorithm:** Multinomial logistic regression with L2 regularization
+- **Solver:** LBFGS for multiclass problems
+- **Feature Selection:** RFECV with 5-fold stratified CV
+- **Class Balancing:** Class-weighted loss function
+- **Hyperparameters:** C ∈ [0.001, 0.01, 0.1, 1.0, 10.0] via grid search
+
+**Expected Performance:** κ = 0.6451 (95% CI: 0.6343-0.6563)
+
+#### 5.1.2 Random Forest
+
+**Command:**
+```bash
+python random_forest.py "$ERP_ROOT"
+```
+
+**Implementation Details:**
+- **Trees:** 100 estimators with bootstrap sampling
+- **Splitting:** Gini impurity criterion
+- **Feature Selection:** No explicit selection (embedded in tree splits)
+- **Class Balancing:** Class-weighted sample importance
+- **Hyperparameters:** max_depth ∈ [10, 20, None], min_samples_split ∈ [2, 5, 10]
+
+**Expected Performance:** κ = 0.6558 (95% CI: 0.6448-0.6673)
+
+### 5.2 Sequence Models
+
+#### 5.2.1 BiLSTM-EndFuse
+
+**Command:**
 ```bash
 export TENSOR_DIR="$ERP_ROOT/preprocessed/tensor"
 export TW="48"  # or 72
-```
 
-#### Logistic Regression
-
-Train multinomial logistic regression on LOS buckets:
-
-```bash
-python train_lr_los.py "$ERP_ROOT"
-```
-
-#### Random Forest
-
-Train random forest on LOS buckets:
-
-```bash
-python train_rf_los.py "$ERP_ROOT"
-```
-
-### Sequence Models
-
-#### BiLSTM-EndFuse
-
-Train the model with cross-validation and bootstrap confidence intervals:
-
-```bash
 python bilstm_endfuse.py \
   --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
   --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_${TW}.pt" \
@@ -217,13 +387,29 @@ python bilstm_endfuse.py \
   --num_layers 2 \
   --dropout 0.3 \
   --batch_size 64 \
-  --learning_rate 1e-3
+  --learning_rate 1e-3 \
+  --seed 42
 ```
 
-#### BiLSTM-AttenFuse
+**Architecture Details:**
+- **Encoder:** 2-layer bidirectional LSTM (hidden_dim=128)
+- **Static MLP:** 2 layers with BatchNorm and Dropout
+- **Fusion:** Simple concatenation of final hidden state + static embedding
+- **Classifier:** Single linear layer with softmax
 
-Train the model with attention mechanism:
+**Training Configuration:**
+- **Optimizer:** Adam with ReduceLROnPlateau scheduler
+- **Loss:** Class-weighted cross-entropy with label smoothing
+- **Validation:** 5-fold stratified GroupKFold cross-validation
+- **Early Stopping:** Patience = 10 epochs
 
+**Expected Performance:**
+- 48h: κ = 0.7092 (95% CI: 0.6991-0.7188)
+- 72h: κ = 0.8142 (95% CI: 0.8070-0.8210)
+
+#### 5.2.2 BiLSTM-AttenFuse
+
+**Command:**
 ```bash
 python bilstm_attenfuse.py \
   --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
@@ -235,15 +421,27 @@ python bilstm_attenfuse.py \
   --hidden_dim 128 \
   --num_layers 2 \
   --dropout 0.3 \
-  --batch_size 64 \
-  --learning_rate 1e-3
+  --batch_size 32 \
+  --learning_rate 1e-3 \
+  --seed 42
 ```
 
-#### BiGRU-EndFuse
+**Architecture Details:**
+- **Temporal Convolutions:** Kernel sizes [3,5,7,9], 64 filters each
+- **Attention Mechanism:** Single-head attention with positional encoding
+- **Pooling Fusion:** Learnable combination of attention, mean, and max pooling
+- **Static Gating:** Multiplicative gating with feature and gate pathways
+- **Classifier:** 2-layer MLP with residual connection
 
-Train bidirectional GRU with end fusion:
+**Expected Performance:**
+- 48h: κ = 0.7126 (95% CI: 0.7032-0.7219)
+- 72h: κ = 0.8235 (95% CI: 0.8192-0.8303) **[Best Overall]**
 
+#### 5.2.3 BiGRU Models
+
+**Commands:**
 ```bash
+# EndFuse
 python bigru_endfuse.py \
   --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
   --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_${TW}.pt" \
@@ -251,13 +449,8 @@ python bigru_endfuse.py \
   --seq_lengths_path "$TENSOR_DIR/seq_lengths_${TW}.pt" \
   --icu_ids_path "$TENSOR_DIR/icu_id_list_${TW}.pt" \
   --results_dir "$ERP_ROOT/results/BiGRU-EndFuse_${TW}"
-```
 
-#### BiGRU-AttenFuse
-
-Train bidirectional GRU with attention fusion. Generates results directory with CV selection (linear κ), final model, test metrics, predictions, and bootstrap summary:
-
-```bash
+# AttenFuse  
 python bigru_attenfuse.py \
   --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
   --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_${TW}.pt" \
@@ -268,26 +461,34 @@ python bigru_attenfuse.py \
   --hidden_dim 128 \
   --num_layers 2 \
   --dropout 0.3 \
-  --batch_size 64 \
+  --batch_size 32 \
   --learning_rate 1e-3 \
   --seed 42
 ```
 
-#### Multitask BiLSTM
+**Architecture Notes:**
+- Replace LSTM cells with GRU cells (fewer parameters)
+- Same fusion strategies as LSTM counterparts
+- Better performance on 48h window due to simpler architecture
 
-Train multitask model for total LOS, mortality, and hourly LOS prediction. Generates grid-searched/validated models, fold summaries, test metrics, and per-task prediction files:
+**Expected Performance:**
+- BiGRU-EndFuse 48h: κ = 0.7102 (95% CI: 0.7006-0.7201)
+- BiGRU-AttenFuse 48h: κ = 0.7209 (95% CI: 0.7103-0.7311)
 
+### 5.3 Multitask Framework
+
+**Command:**
 ```bash
 python multitask.py \
-  --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
-  --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_${TW}.pt" \
-  --static_path "$TENSOR_DIR/static_tensor_${TW}.pt" \
-  --seq_lengths_path "$TENSOR_DIR/seq_lengths_${TW}.pt" \
-  --icu_ids_path "$TENSOR_DIR/icu_id_list_${TW}.pt" \
+  --X_path "$TENSOR_DIR/X_padded_tensor_48.pt" \
+  --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_48.pt" \
+  --static_path "$TENSOR_DIR/static_tensor_48.pt" \
+  --seq_lengths_path "$TENSOR_DIR/seq_lengths_48.pt" \
+  --icu_ids_path "$TENSOR_DIR/icu_id_list_48.pt" \
   --y_mortality_path "$TENSOR_DIR/y_mortality_tensor.pt" \
   --y_hourly_path "$TENSOR_DIR/y_hourly_tensor.pt" \
   --hour_mask_path "$TENSOR_DIR/hour_mask.pt" \
-  --results_dir "$ERP_ROOT/results/Multitask_BiLSTM_${TW}" \
+  --results_dir "$ERP_ROOT/results/Multitask_BiLSTM_48" \
   --hidden_dim 128 \
   --num_layers 2 \
   --dropout 0.3 \
@@ -296,23 +497,113 @@ python multitask.py \
   --seed 42
 ```
 
----
+**Architecture Details:**
+- **Shared Encoder:** 2-layer BiLSTM with late fusion
+- **Task Heads:**
+  - Total LOS: 2-layer MLP → 8-class classification
+  - Mortality: Single linear layer → binary classification  
+  - Hourly LOS: Time-distributed MLP → per-timestep prediction
+- **Loss Function:** Weighted sum (λ_total = λ_mort = λ_hourly = 1.0)
 
-## Reproducibility & System Notes
-
-- All models use cross-validation and bootstrap confidence intervals for robust evaluation
-- Random seeds are set for reproducibility where specified
-- The preprocessing pipeline follows the methodology described in the dissertation sections referenced in each step
-- Large memory requirements due to MIMIC-III dataset size - ensure adequate system resources
-
----
-
-## License & Acknowledgments
-
-This work builds upon the MIMIC-III benchmarks by Harutyunyan et al., 2019. Please cite the original MIMIC-III database and relevant benchmark papers when using this code.
-
-For questions or issues, please open a GitHub issue or contact the repository maintainer.
+**Expected Performance:**
+- Total LOS: κ = 0.7171 (95% CI: 0.7077-0.7272)
+- Hourly LOS: κ = 0.5716 (95% CI: 0.5597-0.5852) 
+- Mortality: AUC-ROC = 0.9556, AUC-PR = 0.8084
 
 ---
 
-**Note**: This codebase is specifically designed for the dissertation research and may require modifications for other use cases or datasets.
+## 6. Results Analysis
+
+**Command:**
+```bash
+python results_viz_toolkit.py all \
+  --outdir ./out \
+  --forest_csv my_forest_data.csv \
+  --pairwise_map predictions_map.csv \
+  --macro_map prob_map.csv \
+  --perclass_file test_probs.csv
+
+python results_viz_toolkit.py attention \
+  --temporal_attn fold1_temporal_attn.npy \
+  --channel_weights fold1_channel_weights.npy --channel_names ts_feature_names.txt \
+  --static_gates fold1_static_gates.npy --static_names static_feature_names.txt \
+  --outdir ./out
+
+```
+**Visualization Generation:**
+- Forest plots (Figure 16)
+- Pairwise Matrix (Figure 17)
+- Macro-average ROC and PR (Figure 18)
+- Temporal attention over time steps (Figure 19)
+- Channel-wise attention across variables (Figure 20)
+- Static feature gating importance (Figure 21)
+- Per-class ROC and PR (Figure 22)
+---
+
+## 7. Expected Outputs
+
+### 7.1 Directory Structure Post-Execution
+
+```
+ERP_ROOT/
+├── subjects/
+│   └── {SUBJECT_ID}/
+│       ├── stays.csv
+│       ├── diagnoses.csv
+│       └── events.csv
+├── preprocessed/
+│   ├── dynamic_data.csv
+│   ├── static_data.csv
+│   ├── listfile.csv
+│   ├── features_lr.csv
+│   ├── features_rf.csv
+│   └── tensor/
+│       ├── X_padded_tensor_{48,72}.pt
+│       ├── y_total_class_tensor_{48,72}.pt
+│       ├── static_tensor_{48,72}.pt
+│       ├── seq_lengths_{48,72}.pt
+│       ├── icu_id_list_{48,72}.pt
+│       ├── y_mortality_tensor.pt
+│       ├── y_hourly_tensor.pt
+│       └── hour_mask.pt
+├── results/
+│   ├── BiLSTM-EndFuse_{48,72}/
+│   ├── BiLSTM-AttenFuse_{48,72}/
+│   ├── BiGRU-EndFuse_{48,72}/
+│   ├── BiGRU-AttenFuse_{48,72}/
+│   └── Multitask_BiLSTM_48/
+│       ├── cv_results.json
+│       ├── test_metrics.json
+│       ├── predictions.csv
+│       ├── bootstrap_summary.json
+│       └── attention_analysis/
+└── eda/
+    ├── figures/
+    ├── statistical_tests/
+    └── combined_datasets/
+```
+
+### 7.2 Common Issues & Troubleshooting
+
+**Memory Issues:**
+- Reduce batch size if OOM errors occur
+- Use gradient checkpointing for large sequences
+- Process data in chunks if preprocessing fails
+
+**Performance Discrepancies:**
+- Verify identical data splits (check ICU_IDs in train/test)
+- Confirm hyperparameter settings match exactly
+- Check PyTorch/CUDA versions for consistency
+
+**Missing Dependencies:**
+- Install exact package versions if results differ
+- Use pip freeze > requirements.txt to capture exact environment
+
+
+## Conclusion
+
+This technical appendix provides complete instructions for reproducing the multimodal ICU LOS prediction framework. Following these procedures exactly should yield performance metrics within the specified confidence intervals. The modular design allows for replication of individual components or the complete pipeline.
+
+For questions or issues during reproduction, refer to the codebase documentation at https://github.com/CHNOPS0127/ERP_MIMIC-III or verify against the expected outputs listed in Section 7.
+
+**Estimated Total Runtime:** 12-72 hours depending on hardware configuration and selected models.
