@@ -125,9 +125,10 @@ ERP_ROOT/
 
 ## 3. Complete Preprocessing Pipeline
 
-Note: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
+Note 1: References to the corresponding section of the dissertation are indicated in parentheses as (§)
+Note 2: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
 
-### 3.1 Step 1: Subject Inclusion
+### 3.1 Step 1: Subject Inclusion (§3.2.1)
 
 **Objective:** Extract per-subject directories with stays, diagnoses, and events
 
@@ -141,7 +142,7 @@ python extract_mimic3.py "$MIMIC3_ROOT" "$ERP_ROOT/subjects"
 - `$ERP_ROOT/subjects/{SUBJECT_ID}/diagnoses.csv`
 - `$ERP_ROOT/subjects/{SUBJECT_ID}/events.csv`
 
-### 3.2 Step 2: Events Validation
+### 3.2 Step 2: Events Validation (§3.2.2)
 
 **Objective:** Reconcile ICUSTAY_IDs and clean event timestamps
 
@@ -154,7 +155,7 @@ python validate_events.py "$ERP_ROOT/subjects"
 - Updated `events.csv` files with validated identifiers
 - Timestamped log of validation statistics
 
-### 3.3 Step 3: Feature Selection
+### 3.3 Step 3: Feature Selection (§3.2.3)
 
 **Objective:** Apply clinically-motivated feature selection
 
@@ -178,7 +179,7 @@ export VARMAP="resources/variable_map.csv"
 - `$ERP_ROOT/preprocessed/wide_events.csv` (per-subject time series)
 - Feature selection logs and mapping files
 
-### 3.4 Step 4: Data Cleaning & Temporal Alignment
+### 3.4 Step 4: Data Cleaning (§3.2.4)
 
 **Objective:** Standardize units and create hourly time grid
 
@@ -192,7 +193,7 @@ python data_cleaning.py "$ERP_ROOT"
 - Unit conversion logs
 - Missing data pattern summaries
 
-### 3.5 Step 5: Final Preprocessing
+### 3.5 Step 5: Final Preprocessing (§3.2.5-3.2.6)
 
 **Objective:** Imputation, encoding, and dataset finalization
 
@@ -206,7 +207,7 @@ python final_preprocessing.py "$ERP_ROOT"
 - `$ERP_ROOT/preprocessed/static_data.csv`  
 - `$ERP_ROOT/preprocessed/listfile.csv`
 
-### 3.6 Step 6: Tensor Creation
+### 3.6 Step 6: Tensor Creation (§5.1)
 
 **Objective:** Generate model-ready tensors for sequence models
 
@@ -244,7 +245,7 @@ python tensor_creation.py "$ERP_ROOT" --task los --time_window 72
 - `y_hourly_tensor.pt` - Hourly remaining LOS [N, T]
 - `hour_mask.pt` - Valid hour indicators [N, T]
 
-### 3.7 Step 7: Baseline Feature Engineering
+### 3.7 Step 7: Baseline Feature Engineering (§5.2)
 
 **Objective:** Create handcrafted features for traditional ML models
 
@@ -265,7 +266,7 @@ python feature_engineering.py "$ERP_ROOT"
 
 ---
 
-## 4. Exploratory Data Analysis
+## 4. Exploratory Data Analysis (§4)
 
 ### 4.1 Combined EDA Execution
 
@@ -286,7 +287,7 @@ python eda.py \
 
 ---
 
-## 5. Model Implementation & Evaluation
+## 5. Model Implementation & Evaluation (§5-6)
 
 **Procedure:**
 - **Data Split:** 80% train, 20% test
@@ -295,7 +296,7 @@ python eda.py \
 - **Final Training:** Best hyperparameters on full training set
 - **Test Evaluation:** Single evaluation on held-out test set with boostrap evaluation (N=1000)
 
-### 5.1 Baseline Models
+### 5.1 Baseline Models (§5.2)
 
 #### 5.1.1 Logistic Regression
 
@@ -325,7 +326,7 @@ python random_forest.py "$ERP_ROOT"
 - **Class Balancing:** Class-weighted sample importance
 - **Hyperparameters:** max_depth ∈ [10, 20, None], min_samples_split ∈ [2, 5, 10]
 
-### 5.2 Sequence Models
+### 5.2 Sequence Models (§5.3)
 
 #### 5.2.1 BiLSTM-EndFuse
 
@@ -421,7 +422,7 @@ python bigru_attenfuse.py \
 - Same fusion strategies as LSTM counterparts
 - Better performance on 48h window due to simpler architecture
 
-### 5.3 Multitask Framework
+### 5.3 Multitask Framework (§5.4)
 
 **Command:**
 ```bash
@@ -453,7 +454,7 @@ python multitask.py \
 
 ---
 
-## 6. Results Analysis
+## 6. Results Analysis ((§7-8)
 
 **Command:**
 ```bash
