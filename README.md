@@ -279,15 +279,17 @@ python eda.py \
 ```
 
 **Generated Analyses:**
-1. **Distribution Analysis:** LOS and remaining LOS distributions, bucketed analysis
-2. **Missingness Patterns:** Temporal and variable-wise missing data analysis  
-3. **Trajectory Analysis:** Vital sign trajectories grouped by LOS
-4. **Feature Association:** Early predictors vs. LOS correlation analysis
-5. **Clinical Correlations:** GCS, diagnoses, demographics vs. outcomes
+1. **Distribution Analysis:** LOS and remaining LOS distributions, bucketed analysis (Figure 4 & 5)
+2. **Missingness Patterns:** Temporal and variable-wise missing data analysis (Figure 3)
+3. **Trajectory Analysis:** Vital sign trajectories grouped by LOS (Figure 6 & 7)
+4. **Feature Association:** Early predictors vs. LOS correlation analysis (Feature 9 & 10)
+5. **Clinical Correlations:** GCS, diagnoses, demographics vs. outcomes (Figure 8, 12-14)
 
 ---
 
 ## 5. Model Implementation & Evaluation (§5-6)
+
+- Note: References to the corresponding section of the dissertation are indicated in parentheses as (§)
 
 **Procedure:**
 - **Data Split:** 80% train, 20% test
