@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""
-Tensor creation from preprocessed CSVs.
 
-Options:
-- --time_window: hours to include (e.g., 48, 72)
-- --task: 'los' or 'multitask'
-"""
 
 import os
 import argparse
@@ -250,3 +244,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
