@@ -1,30 +1,4 @@
 #!/usr/bin/env python3
-"""
-BiGRU + Attention Fusion (single-task LOS classification)
-
-- Uses rnn_utils.py for:
-  * set_seed, get_device
-  * load_single_task_tensors
-  * make_group_splits (grouped train/test by ICUSTAY_ID)
-  * train_eval_single_task (CV + early stopping)
-  * train_final_single_task (final fit on all training data)
-  * evaluate_single_task_test (point metrics + test predictions file)
-  * bootstrap_single_task (95% CIs via bootstrap)
-  * save_metrics_table, save_predictions_table
-
-Run example (one config):
-  python bigru_attenfuse.py ^
-    --X_path D:\...\tensor\X_padded_tensor.pt ^
-    --y_total_class_path D:\...\tensor\y_total_class_tensor.pt ^
-    --static_path D:\...\tensor\static_tensor.pt ^
-    --seq_lengths_path D:\...\tensor\seq_lengths.pt ^
-    --icu_ids_path D:\...\tensor\icu_id_list.pt ^
-    --results_dir D:\...\results\BiGRU-AttenFuse ^
-    --hidden_dim 128 --num_layers 2 --dropout 0.3 --batch_size 64 --learning_rate 1e-3 --seed 42
-
-Grid search style (comma-separated lists are allowed):
-  --hidden_dim 128,256 --dropout 0.2,0.3 --batch_size 32,64 --learning_rate 0.001,0.0005 --num_layers 1,2 --seed 42
-"""
 
 import os
 import json
@@ -370,3 +344,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
