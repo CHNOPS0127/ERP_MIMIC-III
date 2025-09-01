@@ -1,53 +1,4 @@
-"""
-Reproducible MIMIC-III EDA Pipeline
-===================================
 
-This single Python script turns your ad‑hoc EDA into a **portable, rerunnable pipeline**.
-It avoids hard‑coded Windows paths, validates inputs, saves plots, and gracefully
-handles optional libraries.
-
----
-Quick start
-----------
-1) Put your data in a directory like:
-   data/
-     preprocessed/
-       static_data.csv
-       dynamic/               # per-ICUSTAY hourly CSVs
-         *.csv
-     dynamic_raw/             # (optional) raw per-subject episodes to combine
-       *.csv
-
-2) Run:
-   python eda_mimic3.py \
-       --data-root ./data \
-       --out-root ./eda_output \
-       --combine-from dynamic_raw   # optional: if you want to build dynamic_data_eda.csv from many files
-
-3) Outputs (under --out-root):
-   - combined/dynamic_data_eda.csv
-   - combined/los_combined.csv
-   - figures/*.png (all plots)
-   - tables/*.csv  (stats and test results)
-
----
-Requirements
------------
-- Python 3.9+
-- pandas, numpy, matplotlib, scipy, statsmodels
-- Optional: seaborn, tqdm
-
-Install (example):
-  pip install pandas numpy matplotlib scipy statsmodels seaborn tqdm
-
-Notes
------
-- The script is defensive: it checks files/columns and skips sections that
-  can't run, logging a warning rather than crashing.
-- Plots are **saved to PNG**; if running interactively, use --show to display.
-- Seaborn is optional; where seaborn-only visuals are requested (e.g., pairplot),
-  we skip if seaborn isn't installed.
-"""
 
 from __future__ import annotations
 import argparse
@@ -882,3 +833,4 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"[ERROR] {e}")
         sys.exit(1)
+
