@@ -2,14 +2,6 @@
 """
 Feature engineering for classical models (LogReg, RandomForest).
 
-Inputs (default under <root>/preprocessed/):
-- dynamic_data_imputed.csv  (hourly, with HOUR, ICUSTAY_ID, vitals, GCS-encoded, *_missing_flag)
-- static_data_encoded.csv   (one row per ICUSTAY_ID with LOS, MORTALITY and encoded static vars)
-
-Outputs (under <root>/preprocessed/features by default):
-- features_all_rf.csv              (raw features, for RF)
-- features_all_lr.csv              (standardized numeric features, for LR)
-- (optional split) features_train_*.csv / features_test_*.csv
 """
 
 import os
@@ -349,3 +341,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
