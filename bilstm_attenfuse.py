@@ -1,30 +1,6 @@
 #!/usr/bin/env python3
 # bilstm_endfuse.py
-r"""
-BiLSTM-EndFuse: LOS bucket classification with sequence + static feature fusion.
 
-This script:
-  1) Loads tensors (X, y_class, static, seq_lengths, icu_ids)
-  2) Makes a group-aware train/test split (ICUSTAY_ID groups)
-  3) Runs 5-fold CV on the train set using rnn_utils.train_eval_single_task
-  4) Trains a final model on the full train set
-  5) Evaluates on the held-out test set and saves metrics/predictions
-  6) Bootstraps test metrics for 95% CIs
-
-Requirements:
-  - rnn_utils.py in the same folder (or on your PYTHONPATH)
-  - PyTorch, scikit-learn, pandas, numpy
-
-Example (PowerShell):
-  python .\bilstm_endfuse.py `
-    --X_path             "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\preprocessed\tensor\X_padded_tensor_48.pt" `
-    --y_total_class_path "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\preprocessed\tensor\y_total_class_tensor_48.pt" `
-    --static_path        "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\preprocessed\tensor\static_tensor_48.pt" `
-    --seq_lengths_path   "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\preprocessed\tensor\seq_lengths_48.pt" `
-    --icu_ids_path       "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\preprocessed\tensor\icu_id_list_48.pt" `
-    --results_dir        "D:\DATA72000ERP\mimic3-data\data\trial\random_1000_subjects\results\BiLSTM-EndFuse" `
-    --hidden_dim 128 --dropout 0.3 --num_layers 2 --batch_size 64 --learning_rate 1e-3 --seed 42
-"""
 
 import os
 import argparse
@@ -261,3 +237,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
