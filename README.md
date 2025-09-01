@@ -125,8 +125,8 @@ ERP_ROOT/
 
 ## 3. Complete Preprocessing Pipeline
 
-Note 1: References to the corresponding section of the dissertation are indicated in parentheses as (§)
-Note 2: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
+- Note 1: References to the corresponding section of the dissertation are indicated in parentheses as (§)
+- Note 2: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted from the MIMIC-III benchmark framework described in Harutyunyan et al. (2019). The complete reference is provided in the dissertation.
 
 ### 3.1 Step 1: Subject Inclusion (§3.2.1)
 
