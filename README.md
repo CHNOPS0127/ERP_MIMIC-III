@@ -161,7 +161,9 @@ python validate_events.py "$ERP_ROOT/subjects"
 
 **Command:**
 ```bash
-python feature_selection.py "$ERP_ROOT"
+python feature_selection.py "$ERP_ROOT/subjects" \
+  --variable_map "$VARMAP" \
+  --mimic_root "$MIMIC3_ROOT"
 ```
 
 **Key Parameters:**
@@ -297,7 +299,9 @@ python eda.py \
 
 **Command:**
 ```bash
-python logistic_regression.py "$ERP_ROOT"
+python logistic_regression.py "$ERP_ROOT" \
+  --cv_splits 5 \
+  --bootstrap 1000
 ```
 
 **Implementation Details:**
@@ -311,7 +315,9 @@ python logistic_regression.py "$ERP_ROOT"
 
 **Command:**
 ```bash
-python random_forest.py "$ERP_ROOT"
+python random_forest.py "$ERP_ROOT" \
+  --cv_splits 5 \
+  --bootstrap 1000
 ```
 
 **Implementation Details:**
@@ -395,6 +401,12 @@ python bigru_endfuse.py \
   --seq_lengths_path "$TENSOR_DIR/seq_lengths_${TW}.pt" \
   --icu_ids_path "$TENSOR_DIR/icu_id_list_${TW}.pt" \
   --results_dir "$ERP_ROOT/results/BiGRU-EndFuse_${TW}"
+  --hidden_dim 128 \
+  --num_layers 2 \
+  --dropout 0.4 \
+  --batch_size 64 \
+  --learning_rate 1e-3 \
+  --seed 42
 
 # AttenFuse  
 python bigru_attenfuse.py \
@@ -411,11 +423,6 @@ python bigru_attenfuse.py \
   --learning_rate 1e-3 \
   --seed 42
 ```
-
-**Architecture Notes:**
-- Replace LSTM cells with GRU cells (fewer parameters)
-- Same fusion strategies as LSTM counterparts
-- Better performance on 48h window due to simpler architecture
 
 ### 5.3 Multitask Framework (§5.4)
 
