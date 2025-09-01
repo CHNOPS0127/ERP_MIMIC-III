@@ -170,11 +170,6 @@ python feature_selection.py "$ERP_ROOT"
 - **Demographics:** 7 variables (age, gender, ethnicity, etc.)
 - **Text Features:** 26 TF-IDF terms from clinical notes
 
-**Item Harmonization:**
-```bash
-export VARMAP="resources/variable_map.csv"
-```
-
 **Expected Outputs:**
 - `$ERP_ROOT/preprocessed/wide_events.csv` (per-subject time series)
 - Feature selection logs and mapping files
