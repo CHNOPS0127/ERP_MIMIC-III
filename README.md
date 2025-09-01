@@ -315,4 +315,4 @@ For questions or issues, please open a GitHub issue or contact the repository ma
 
 ---
 
-**Note**: This preprocessing pipeline is specifically designed for the dissertation research and may require modifications for other use cases or datasets.
+**Note**: This codebase is specifically designed for the dissertation research and may require modifications for other use cases or datasets.
