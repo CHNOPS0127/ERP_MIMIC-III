@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
-"""
-Dynamic events pipeline (coherent with events validation).
 
-Inputs (under raw_root):
-- Subject folders from events validation (each has events.csv and/or filtered_events.csv)
-- all_stays.csv
-
-Outputs (under raw_root/preprocessed):
-- <SUBJECT_ID>/standardized_events.csv   # units standardized + HOUR computed
-- <SUBJECT_ID>/wide_events.csv           # pivoted wide per timepoint
-- non_numeric_summary.csv                # variable-level non-numeric summary
-- dynamic/<SUBJECT_ID>_episode_timeseries*.csv  # episode files (per ICUSTAY)
-
-Notes:
-- Assumes <SUBJECT_ID>/filtered_events.csv already exists (created using updated_variable_selection_I.csv).
-- Logic mirrors your original snippets; only organized into functions and unified paths.
-"""
 
 import os
 import re
@@ -421,3 +405,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
