@@ -37,13 +37,14 @@ This repository integrates multimodal ICU covariates from MIMIC-III through a re
 ```bash
 numpy>=1.21.0
 pandas>=1.3.0
-torch>=1.9.0
-scikit-learn>=1.0.0
 scipy>=1.7.0
+scikit-learn>=1.0.0
+torch>=1.9.0
 tqdm>=4.62.0
-pyarrow>=5.0.0  # Optional but recommended for faster I/O
+pyarrow>=5.0.0  # Optional
 matplotlib>=3.4.0
 seaborn>=0.11.0
+statsmodels>=0.13.0
 ```
 
 ### 1.3 Environment Setup Procedure
