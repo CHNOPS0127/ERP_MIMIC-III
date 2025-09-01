@@ -268,8 +268,6 @@ python feature_engineering.py "$ERP_ROOT"
 
 ## 4. Exploratory Data Analysis (§4)
 
-### 4.1 Combined EDA Execution
-
 **Command:**
 ```bash
 python eda.py \
@@ -278,7 +276,7 @@ python eda.py \
     --combine-wide-events
 ```
 
-**Generated Analyses:**
+**Generated Figures/Analysis:**
 1. **Distribution Analysis:** LOS and remaining LOS distributions, bucketed analysis (Figure 4 & 5)
 2. **Missingness Patterns:** Temporal and variable-wise missing data analysis (Figure 3)
 3. **Trajectory Analysis:** Vital sign trajectories grouped by LOS (Figure 6 & 7)
