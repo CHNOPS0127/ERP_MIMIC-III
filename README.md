@@ -64,7 +64,9 @@ source .venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 
 # Install dependencies
-pip install numpy pandas tqdm scikit-learn scipy torch pyarrow matplotlib seaborn
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 ### 1.4 Environment Variables Configuration
