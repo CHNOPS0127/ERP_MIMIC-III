@@ -286,7 +286,7 @@ python eda.py \
 
 ---
 
-## 5. Model Implementation & Evaluation (§5-6)
+## 5. Model Implementation & Evaluation
 
 - Note: References to the corresponding section of the dissertation are indicated in parentheses as (§)
 
@@ -465,7 +465,7 @@ python multitask.py \
 
 ---
 
-## 6. Results Analysis (§7-8)
+## 6. Results Analysis
 
 **Command:**
 ```bash
