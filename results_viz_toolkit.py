@@ -1,13 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-results_viz_toolkit.py
 
-Dependencies: numpy, pandas, matplotlib, scikit-learn
-
-This is to generate visualizations for results analysis and interpretation
-
-"""
 
 import os
 import re
