@@ -361,6 +361,12 @@ python random_forest.py "$ERP_ROOT" \
 
 ### 5.2 Sequence Models (§5.3)
 
+**Training Configuration:**
+- **Optimizer:** Adam with ReduceLROnPlateau scheduler
+- **Loss:** Class-weighted cross-entropy with label smoothing
+- **Validation:** 5-fold stratified GroupKFold cross-validation
+- **Early Stopping:** Patience = 10 epochs
+
 #### 5.2.1 BiLSTM-EndFuse
 
 **Command:**
@@ -387,13 +393,7 @@ python bilstm_endfuse.py \
 - **Encoder:** 2-layer bidirectional LSTM
 - **Static MLP:** 2 layers with BatchNorm and Dropout
 - **Fusion:** Simple concatenation of final hidden state + static embedding
-- **Classifier:** Single linear layer with softmax
-
-**Training Configuration:**
-- **Optimizer:** Adam with ReduceLROnPlateau scheduler
-- **Loss:** Class-weighted cross-entropy with label smoothing
-- **Validation:** 5-fold stratified GroupKFold cross-validation
-- **Early Stopping:** Patience = 10 epochs
+- **Classifier:** 2-layer with softmax
 
 #### 5.2.2 BiLSTM-AttenFuse
 
@@ -421,9 +421,6 @@ python bilstm_attenfuse.py \
 - **Static Gating:** Multiplicative gating with feature and gate pathways
 - **Classifier:** 2-layer MLP with residual connection
 
-**Training Configuration:**
-Training mirrors BiLSTM-EndFuse detailed above.
-
 #### 5.2.3 BiGRU-EndFuse 
 
 **Commands:**
@@ -445,15 +442,9 @@ python bigru_endfuse.py \
 ```
 **Architecture Details:**
 - **Encoder:** 2-layer bidirectional GRU
-- **Static MLP:** 2 layers with BatchNorm and Dropout
+- **Static MLP:** 2-layers (BN+Dropout). 
 - **Fusion:** Simple concatenation of final hidden state + static embedding
-- **Classifier:** Single linear layer with softmax
-
-**Training Configuration:**
-- **Optimizer:** Adam with ReduceLROnPlateau scheduler
-- **Loss:** Class-weighted cross-entropy with label smoothing
-- **Validation:** 5-fold stratified GroupKFold cross-validation
-- **Early Stopping:** Patience = 10 epochs
+- **Classifier:** 2-layer MLP + softmax
 
 #### 5.2.4 BiGRU-AttenFuse 
 
@@ -480,9 +471,6 @@ python bigru_attenfuse.py \
 - **Pooling Fusion:** Learnable combination of attention, mean, and max pooling
 - **Static Gating:** Multiplicative gating with feature and gate pathways
 - **Classifier:** 2-layer MLP with residual connection
-
-**Training Configuration:**
-Training mirrors BiGRU-EndFuse detailed above.
 
 ### 5.3 Multitask Framework (§5.4)
 
