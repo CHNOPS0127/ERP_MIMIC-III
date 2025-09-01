@@ -1,0 +1,397 @@
+ITEMID,VARIABLE,LABEL,SOURCE
+3348,Capillary refill rate,Capillary Refill,chartevents
+115,Capillary refill rate,Capillary Refill [Right],chartevents
+8377,Capillary refill rate,Capillary Refill [Left],chartevents
+8368,Diastolic blood pressure,Arterial BP [Diastolic],chartevents
+220051,Diastolic blood pressure,Arterial Blood Pressure diastolic,chartevents
+225310,Diastolic blood pressure,ART BP Diastolic,chartevents
+8555,Diastolic blood pressure,Arterial BP #2 [Diastolic],chartevents
+8441,Diastolic blood pressure,NBP [Diastolic],chartevents
+220180,Diastolic blood pressure,Non Invasive Blood Pressure diastolic,chartevents
+8502,Diastolic blood pressure,BP Cuff [Diastolic],chartevents
+8440,Diastolic blood pressure,Manual BP [Diastolic],chartevents
+8503,Diastolic blood pressure,BP Left Arm [Diastolic],chartevents
+8504,Diastolic blood pressure,BP Left Leg [Diastolic],chartevents
+8507,Diastolic blood pressure,BP Right Leg [Diastolic],chartevents
+8506,Diastolic blood pressure,BP Right Arm [Diastolic],chartevents
+224643,Diastolic blood pressure,Manual Blood Pressure Diastolic Left,chartevents
+3420,Fraction inspired oxygen,FIO2,chartevents
+223835,Fraction inspired oxygen,Inspired O2 Fraction,chartevents
+3422,Fraction inspired oxygen,FIO2 [Meas],chartevents
+189,Fraction inspired oxygen,FiO2 (Analyzed),chartevents
+727,Fraction inspired oxygen,Vision FiO2,chartevents
+50931,Glucose,GLUCOSE,labevents
+807,Glucose,Fingerstick Glucose,chartevents
+811,Glucose,Glucose (70-105),chartevents
+1529,Glucose,Glucose,chartevents
+50809,Glucose,GLUCOSE,labevents
+51478,Glucose,GLUCOSE,labevents
+3745,Glucose,BloodGlucose,chartevents
+225664,Glucose,Glucose finger stick,chartevents
+220621,Glucose,Glucose (serum),chartevents
+226537,Glucose,Glucose (whole blood),chartevents
+211,Heart Rate,Heart Rate,chartevents
+220045,Heart Rate,Heart Rate,chartevents
+226707,Height,Height,chartevents
+226730,Height,Height (cm),chartevents
+1394,Height,Height Inches,chartevents
+52,Mean blood pressure,Arterial BP Mean,chartevents
+220052,Mean blood pressure,Arterial Blood Pressure mean,chartevents
+225312,Mean blood pressure,ART BP mean,chartevents
+224,Mean blood pressure,IABP Mean,chartevents
+6702,Mean blood pressure,Arterial BP Mean #2,chartevents
+224322,Mean blood pressure,IABP Mean,chartevents
+456,Mean blood pressure,NBP Mean,chartevents
+220181,Mean blood pressure,Non Invasive Blood Pressure mean,chartevents
+3312,Mean blood pressure,BP Cuff [Mean],chartevents
+3314,Mean blood pressure,BP Left Arm [Mean],chartevents
+3316,Mean blood pressure,BP Left Leg [Mean],chartevents
+3322,Mean blood pressure,BP Right Leg [Mean],chartevents
+3320,Mean blood pressure,BP Right Arm [Mean],chartevents
+834,Oxygen saturation,SaO2,chartevents
+50817,Oxygen saturation,OXYGEN SATURATION,labevents
+8498,Oxygen saturation,O2 sat [Post],chartevents
+220227,Oxygen saturation,Arterial O2 Saturation,chartevents
+646,Oxygen saturation,SpO2,chartevents
+220277,Oxygen saturation,O2 saturation pulseoxymetry,chartevents
+50820,pH,PH,labevents
+51491,pH,PH,labevents
+3839,pH,ph (other),chartevents
+1673,pH,PH,chartevents
+50831,pH,PH,labevents
+51094,pH,PH,labevents
+780,pH,Arterial pH,chartevents
+1126,pH,Art.pH,chartevents
+223830,pH,PH (Arterial),chartevents
+4753,pH,pH (Art),chartevents
+4202,pH,pH (cap),chartevents
+860,pH,Venous pH,chartevents
+220274,pH,PH (Venous),chartevents
+618,Respiratory rate,Respiratory Rate,chartevents
+220210,Respiratory rate,Respiratory Rate,chartevents
+3603,Respiratory rate,Resp Rate,chartevents
+224689,Respiratory rate,Respiratory Rate (spontaneous),chartevents
+614,Respiratory rate,Resp Rate (Spont),chartevents
+651,Respiratory rate,Spon RR (Mech.),chartevents
+224422,Respiratory rate,Spont RR,chartevents
+615,Respiratory rate,Resp Rate (Total),chartevents
+224690,Respiratory rate,Respiratory Rate (Total),chartevents
+51,Systolic blood pressure,Arterial BP [Systolic],chartevents
+220050,Systolic blood pressure,Arterial Blood Pressure systolic,chartevents
+225309,Systolic blood pressure,ART BP Systolic,chartevents
+6701,Systolic blood pressure,Arterial BP #2 [Systolic],chartevents
+455,Systolic blood pressure,NBP [Systolic],chartevents
+220179,Systolic blood pressure,Non Invasive Blood Pressure systolic,chartevents
+3313,Systolic blood pressure,BP Cuff [Systolic],chartevents
+3315,Systolic blood pressure,BP Left Arm [Systolic],chartevents
+442,Systolic blood pressure,Manual BP [Systolic],chartevents
+3317,Systolic blood pressure,BP Left Leg [Systolic],chartevents
+3323,Systolic blood pressure,BP Right Leg [Systolic],chartevents
+3321,Systolic blood pressure,BP Right Arm [Systolic],chartevents
+224167,Systolic blood pressure,Manual Blood Pressure Systolic Left,chartevents
+227243,Systolic blood pressure,Manual Blood Pressure Systolic Right,chartevents
+3655,Temperature,Temp Skin [C],chartevents
+677,Temperature,Temperature C (calc),chartevents
+676,Temperature,Temperature C,chartevents
+223762,Temperature,Temperature Celsius,chartevents
+3654,Temperature,Temp Rectal [F],chartevents
+678,Temperature,Temperature F,chartevents
+223761,Temperature,Temperature Fahrenheit,chartevents
+679,Temperature,Temperature F (calc),chartevents
+763,Weight,Daily Weight,chartevents
+224639,Weight,Daily Weight,chartevents
+226512,Weight,Admission Weight (Kg),chartevents
+3580,Weight,Present Weight  (kg),chartevents
+3693,Weight,Weight Kg,chartevents
+3581,Weight,Present Weight  (lb),chartevents
+226531,Weight,Admission Weight (lbs.),chartevents
+3582,Weight,Present Weight  (oz),chartevents
+1127,White Blood Cell Count,"WBC   (4-11,000)",chartevents
+1162,Blood Urea Nitrogen,BUN,chartevents
+837,Sodium,Sodium (135-148),chartevents
+861,White Blood Cell Count,"WBC (4-11,000)",chartevents
+4194,Potassium,ABG Potassium,chartevents
+4195,Sodium,ABG Sodium,chartevents
+4200,White Blood Cell Count,WBC 4.0-11.0,chartevents
+7965,Hemoglobin,methhemoglobin,chartevents
+4381,Potassium,Potassium Phosphate,chartevents
+781,Blood Urea Nitrogen,BUN (6-20),chartevents
+791,Creatinine,Creatinine (0-1.3),chartevents
+813,Hematocrit,Hematocrit,chartevents
+814,Hemoglobin,Hemoglobin,chartevents
+828,Platelet Count,Platelets,chartevents
+829,Potassium,Potassium (3.5-5.3),chartevents
+3109,Sodium,Sodium Bicarb,chartevents
+1821,Potassium,potassium phosphate,chartevents
+4948,Bilirubin,Bilirubin,chartevents
+5811,Creatinine,urine creatinine,chartevents
+5876,Blood Urea Nitrogen,bun,chartevents
+3750,Creatinine,Creatinine   (0-0.7),chartevents
+3761,Hematocrit,Hematocrit (35-51),chartevents
+3789,Platelet Count,Platelet  (150-440),chartevents
+3792,Potassium,Potassium  (3.5-5.3),chartevents
+3803,Sodium,Sodium  (135-148),chartevents
+1525,Creatinine,Creatinine,chartevents
+1535,Potassium,Potassium,chartevents
+1536,Sodium,Sodium,chartevents
+1542,White Blood Cell Count,WBC,chartevents
+1634,Lactate,lactated ringers,chartevents
+2638,Lactate,CEREBRAL LACTATE,chartevents
+2691,Potassium,URINE POTASSIUM,chartevents
+2692,Sodium,URINE SODIUM,chartevents
+2773,Lactate,sjlactate,chartevents
+2856,Potassium,Potassium phosphate,chartevents
+6146,Sodium,sodium bicarbonate,chartevents
+5167,Potassium,potassium Phosphate,chartevents
+5189,Sodium,Sodium supps,chartevents
+5195,Potassium,potassium phosphorus,chartevents
+3578,Potassium,Potassium Chloride,chartevents
+3624,Sodium,Sodium Chloride,chartevents
+3725,Potassium,ABG POTASSIUM,chartevents
+3726,Sodium,ABG SODIUM,chartevents
+3737,Blood Urea Nitrogen,BUN    (6-20),chartevents
+8220,Blood Urea Nitrogen,Effluent BUN,chartevents
+6256,Platelet Count,Platelet Count,chartevents
+6299,Sodium,sodium bicarb,chartevents
+30021,Lactate,Lactated Ringers,inputevents_cv
+30030,Sodium,Sodium Bicarbonate,inputevents_cv
+41439,Sodium,sodium phos,inputevents_cv
+41956,Potassium,Potassium,inputevents_cv
+41183,Sodium,Sodium Phosphate,inputevents_cv
+42488,Sodium,SODIUM PHOSPHATE,inputevents_cv
+42628,Potassium,potassium phos,inputevents_cv
+42676,Urine Output,ANGIO URINE OUTPUT,outputevents
+41450,Potassium,21mM Potassium Phos,inputevents_cv
+41485,Sodium,SODIUM PHOS,inputevents_cv
+30296,Sodium,Sodium Chloride,inputevents_cv
+30297,Potassium,Potassium Chloride,inputevents_cv
+30298,Sodium,Sodium Acetate,inputevents_cv
+30299,Potassium,Potassium Acetate,inputevents_cv
+30338,Sodium,Sodium Bicarb Drip,inputevents_cv
+30006,Platelet Count,Platelets,inputevents_cv
+30029,Potassium,Potassium Phosphate,inputevents_cv
+30105,Platelet Count,OR Platelets,inputevents_cv
+40281,Sodium,sodium phosphate,inputevents_cv
+41808,Sodium,sodium bicarb IVP,inputevents_cv
+42068,Urine Output,angio Urine output,outputevents
+42119,Urine Output,urine output-angio,outputevents
+43957,Sodium,15 m sodium phos   e,inputevents_cv
+43966,Urine Output,real urine output,outputevents
+44711,Potassium,potassium,inputevents_cv
+43238,Potassium,Potassium Chl. Bolus,inputevents_cv
+43348,Urine Output,urine output/kg,outputevents
+43365,Urine Output,urine output/kg/hr,outputevents
+43372,Urine Output,24hr urine output,outputevents
+44706,Urine Output,urine output,outputevents
+44911,Urine Output,urine output farr-10,outputevents
+42848,Sodium,sodium bicarb,inputevents_cv
+42857,Sodium,SODIUM BICARBOANTE,inputevents_cv
+42980,Sodium,D5 1/4 SODIUM BICARB,inputevents_cv
+42999,Sodium,Sodium Bicarb,inputevents_cv
+44325,Urine Output,ED URINE OUTPUT,outputevents
+44370,Lactate,INAMRINONE LACTATE,inputevents_cv
+44424,Sodium,Sodium bicarb,inputevents_cv
+44479,Potassium,potassium phospate,inputevents_cv
+43872,Potassium,Potassium 20meqIVPB,inputevents_cv
+46358,Sodium,Sodium phosphate,inputevents_cv
+46429,Sodium,sodium phosphate 15m,inputevents_cv
+45304,Urine Output,Urine output cc/k/hr,outputevents
+46578,Urine Output,URINE OUTPUT-ER,outputevents
+46603,Sodium,Sodium Citrate ml/hr,inputevents_cv
+46658,Urine Output,ED Urine output,outputevents
+46660,Sodium,sodiumphosphate15mmo,inputevents_cv
+46717,Sodium,NS with Sodium Phos,inputevents_cv
+45627,Potassium,potassium 40/500,inputevents_cv
+45634,Sodium,Sodium Barcarb,inputevents_cv
+44824,Urine Output,EW urine output,outputevents
+45394,Sodium,Sodium Phosphate30mm,inputevents_cv
+45431,Sodium,sodium phos 15mmol,inputevents_cv
+45532,Lactate,IR Lactated ringers,inputevents_cv
+45535,Sodium,Sodium Phos 30mmol,inputevents_cv
+46263,Potassium,potassium phos 15mml,inputevents_cv
+46611,Potassium,POTASSIUM CHLOR 10MQ,inputevents_cv
+46771,Sodium,Ethacrynate Sodium,inputevents_cv
+44111,Sodium,sodiumbicarb 100meq,inputevents_cv
+44182,Sodium,SODIUM BICARB 150MEQ,inputevents_cv
+45762,Sodium,sodium phos 30mmol,inputevents_cv
+45765,Sodium,Sodium phos 30mmol,inputevents_cv
+45804,Urine Output,URINE OUTPUT-E.D.,outputevents
+46453,Potassium,potassium 10/100,inputevents_cv
+42728,Potassium,POTASSIUM,inputevents_cv
+225166,Potassium,Potassium Chloride,inputevents_mv
+225170,Platelet Count,Platelets,inputevents_mv
+227071,Platelet Count,PACU Platelet Intake,inputevents_mv
+221211,Sodium,"Sodium Bicarbonate 1,4%",inputevents_mv
+45132,Sodium,SODIUM PHOS IN NS,inputevents_cv
+44762,Potassium,potassium phos 30mml,inputevents_cv
+44836,Sodium,Sodium PHosphate,inputevents_cv
+43638,Urine Output,urine output cc/k/hr,outputevents
+43674,Sodium,Sodium Phosphate IV,inputevents_cv
+42366,Urine Output,angio urine output,outputevents
+45991,Urine Output,ew-urine output,outputevents
+220955,Lactate,Ringers Lactate,inputevents_mv
+220967,Lactate,Dextrose 5% / Ringers Lactate,inputevents_mv
+220968,Lactate,Dextrose 10% / Ringers Lactate,inputevents_mv
+220980,Lactate,Hextend (Hetastarch 6% in Lactate),inputevents_mv
+220995,Sodium,Sodium Bicarbonate 8.4%,inputevents_mv
+227052,Sodium,Sodium_ApacheIV,chartevents
+227053,Sodium,SodiumScore_ApacheIV,chartevents
+227062,White Blood Cell Count,WBC_ApacheIV,chartevents
+227063,White Blood Cell Count,WBCScore_ApacheIV,chartevents
+222139,Potassium,Potassium ACEtate,inputevents_mv
+226998,Bilirubin,Bilirubin_ApacheIV,chartevents
+227000,Blood Urea Nitrogen,BUN_ApacheIV,chartevents
+227001,Blood Urea Nitrogen,BunScore_ApacheIV,chartevents
+227005,Creatinine,Creatinine_ApacheIV,chartevents
+227017,Hematocrit,Hematocrit_ApacheIV,chartevents
+228389,Sodium,Sodium (serum) (soft),chartevents
+228390,Sodium,Sodium (whole blood) (soft),chartevents
+225890,Potassium,Penicillin G potassium,inputevents_mv
+227519,Urine Output,Urine output_ApacheIV,chartevents
+45736,Sodium,Sodium phos 15mmol,inputevents_cv
+45767,Sodium,SODIUM PO4,inputevents_cv
+227442,Potassium,Potassium (serum),chartevents
+227457,Platelet Count,Platelet Count,chartevents
+227533,Sodium,Sodium Bicarbonate 8.4% (Amp),inputevents_mv
+227464,Potassium,Potassium (whole blood),chartevents
+225624,Blood Urea Nitrogen,BUN,chartevents
+225651,Bilirubin,Direct Bilirubin,chartevents
+225678,Platelet Count,ZPlatelet Count,chartevents
+225690,Bilirubin,Total Bilirubin,chartevents
+70052,Lymphocytes,PERIPHERAL BLOOD LYMPHOCYTES,microbiologyevents
+225975,Sodium,Heparin Sodium (Prophylaxis),inputevents_mv
+220545,Hematocrit,Hematocrit (serum),chartevents
+220546,White Blood Cell Count,WBC,chartevents
+220615,Creatinine,Creatinine,chartevents
+220640,Potassium,ZPotassium (serum),chartevents
+220645,Sodium,Sodium (serum),chartevents
+220228,Hemoglobin,Hemoglobin,chartevents
+225925,Potassium,Potassium Phosphate,inputevents_mv
+225926,Sodium,Sodium ACEtate,inputevents_mv
+226534,Sodium,Sodium (whole blood),chartevents
+226535,Potassium,ZPotassium (whole blood),chartevents
+226540,Hematocrit,Hematocrit (whole blood - calc),chartevents
+226762,Hematocrit,HematocritApacheIIValue,chartevents
+226771,Potassium,PotassiumApacheIIScore,chartevents
+226772,Potassium,PotassiumApacheIIValue,chartevents
+226775,Sodium,SodiumApacheIIScore,chartevents
+226776,Sodium,SodiumApacheIIValue,chartevents
+226779,White Blood Cell Count,WbcApacheIIScore,chartevents
+226780,White Blood Cell Count,WBCApacheIIValue,chartevents
+225152,Sodium,Heparin Sodium,inputevents_mv
+225164,Sodium,Trisodium Citrate 0.4%,inputevents_mv
+45383,Sodium,NSw/sodium phos15mmo,inputevents_cv
+45430,Potassium,potassium Chl 40meq,inputevents_cv
+226369,Platelet Count,OR Platelet Intake,inputevents_mv
+226751,Creatinine,CreatinineApacheIIScore,chartevents
+226752,Creatinine,CreatinineApacheIIValue,chartevents
+226761,Hematocrit,HematocritApacheIIScore,chartevents
+51348,Hematocrit,"Hematocrit, CSF",labevents
+51349,Neutrophils,Hypersegmented Neutrophils,labevents
+51363,White Blood Cell Count,"WBC, CSF",labevents
+51365,Lymphocytes,Atypical Lymphocytes,labevents
+51369,Hematocrit,"Hematocrit, Joint Fluid",labevents
+51375,Lymphocytes,Lymphocytes,labevents
+51384,White Blood Cell Count,"WBC, Joint Fluid",labevents
+51385,Lymphocytes,Atypical Lymphocytes,labevents
+51422,Hematocrit,"Hematocrit, Other Fluid",labevents
+51427,Lymphocytes,Lymphocytes,labevents
+51439,White Blood Cell Count,"WBC, Other Fluid",labevents
+51440,Lymphocytes,Atypical Lymphocytes,labevents
+51445,Hematocrit,"Hematocrit, Pleural",labevents
+51446,Lymphocytes,Lymphocytes,labevents
+51458,White Blood Cell Count,"WBC, Pleural",labevents
+51464,Bilirubin,Bilirubin,labevents
+51465,Bilirubin,Bilirubin Crystals,labevents
+50805,Hemoglobin,Carboxyhemoglobin,labevents
+50810,Hematocrit,"Hematocrit, Calculated",labevents
+50811,Hemoglobin,Hemoglobin,labevents
+50813,Lactate,Lactate,labevents
+50814,Hemoglobin,Methemoglobin,labevents
+50822,Potassium,"Potassium, Whole Blood",labevents
+50824,Sodium,"Sodium, Whole Blood",labevents
+50833,Potassium,Potassium,labevents
+50834,Sodium,"Sodium, Body Fluid",labevents
+50838,Bilirubin,"Bilirubin, Total, Ascites",labevents
+50841,Creatinine,"Creatinine, Ascites",labevents
+50843,Lactate,"Lactate Dehydrogenase, Ascites",labevents
+50847,Potassium,"Potassium, Ascites",labevents
+50848,Sodium,"Sodium, Ascites",labevents
+50852,Hemoglobin,% Hemoglobin A1c,labevents
+50855,Hemoglobin,Absolute Hemoglobin,labevents
+50872,Neutrophils,Anti-Neutrophil Cytoplasmic Antibody,labevents
+50883,Bilirubin,"Bilirubin, Direct",labevents
+50884,Bilirubin,"Bilirubin, Indirect",labevents
+50885,Bilirubin,"Bilirubin, Total",labevents
+50912,Creatinine,Creatinine,labevents
+50954,Lactate,Lactate Dehydrogenase (LD),labevents
+50971,Potassium,Potassium,labevents
+50983,Sodium,Sodium,labevents
+51012,Bilirubin,"Bilirubin, Total, CSF",labevents
+51015,Lactate,"Lactate Dehydrogenase, CSF",labevents
+51021,Creatinine,"Creatinine, Joint Fluid",labevents
+51028,Bilirubin,"Bilirubin, Total, Body Fluid",labevents
+51032,Creatinine,"Creatinine, Body Fluid",labevents
+51041,Potassium,"Potassium, Body Fluid",labevents
+51042,Sodium,"Sodium, Body Fluid",labevents
+51049,Bilirubin,"Bilirubin, Total, Pleural",labevents
+51052,Creatinine,"Creatinine, Pleural",labevents
+51054,Lactate,"Lactate Dehydrogenase, Pleural",labevents
+51057,Potassium,"Potassium, Pleural",labevents
+51058,Sodium,"Sodium, Pleural",labevents
+51064,Potassium,"Potassium, Stool",labevents
+51065,Sodium,"Sodium, Stool",labevents
+51067,Creatinine,24 hr Creatinine,labevents
+51070,Creatinine,"Albumin/Creatinine, Urine",labevents
+51073,Creatinine,"Amylase/Creatinine Ratio, Urine",labevents
+51080,Creatinine,Creatinine Clearance,labevents
+51081,Creatinine,"Creatinine, Serum",labevents
+51082,Creatinine,"Creatinine, Urine",labevents
+51097,Potassium,"Potassium, Urine",labevents
+51099,Creatinine,Protein/Creatinine Ratio,labevents
+51100,Sodium,"Sodium, Urine",labevents
+51106,Creatinine,Urine Creatinine,labevents
+51110,Lymphocytes,Atypical Lymphocytes,labevents
+51115,Hematocrit,"Hematocrit, Ascites",labevents
+51116,Lymphocytes,Lymphocytes,labevents
+51128,White Blood Cell Count,"WBC, Ascites",labevents
+51133,Lymphocytes,Absolute Lymphocyte Count,labevents
+51143,Lymphocytes,Atypical Lymphocytes,labevents
+51212,Hemoglobin,Fetal Hemoglobin,labevents
+51221,Hematocrit,Hematocrit,labevents
+51222,Hemoglobin,Hemoglobin,labevents
+51223,Hemoglobin,Hemoglobin A2,labevents
+51224,Hemoglobin,Hemoglobin C,labevents
+51225,Hemoglobin,Hemoglobin F,labevents
+51232,Neutrophils,Hypersegmented Neutrophils,labevents
+51240,Platelet Count,Large Platelets,labevents
+51244,Lymphocytes,Lymphocytes,labevents
+51245,Lymphocytes,"Lymphocytes, Percent",labevents
+51256,Neutrophils,Neutrophils,labevents
+51264,Platelet Count,Platelet Clumps,labevents
+51265,Platelet Count,Platelet Count,labevents
+51266,Platelet Count,Platelet Smear,labevents
+51285,Hemoglobin,"Reticulocyte, Cellular Hemoglobin",labevents
+51300,White Blood Cell Count,WBC Count,labevents
+51343,Lymphocytes,Atypical Lymphocytes,labevents
+51480,Hematocrit,Hematocrit,labevents
+51516,White Blood Cell Count,WBC,labevents
+51517,White Blood Cell Count,WBC Casts,labevents
+51518,White Blood Cell Count,WBC Clumps,labevents
+51533,White Blood Cell Count,WBCP,labevents
+184,Glascow coma scale eye opening,Eye Opening,chartevents
+220739,Glascow coma scale eye opening,GCS - Eye Opening,chartevents
+454,Glascow coma scale motor response,Motor Response,chartevents
+223901,Glascow coma scale motor response,GCS - Motor Response,chartevents
+198,Glascow coma scale total,GCS Total,chartevents
+723,Glascow coma scale verbal response,Verbal Response,chartevents
+223900,Glascow coma scale verbal response,GCS - Verbal Response,chartevents
+581,Weight,Previous WeightF,chartevents
+3723,Weight,Birth Weight    (kg),chartevents
+3583,Weight,Previous Weight (kg),chartevents
+3692,Weight,Weight Change  (gms),chartevents
+580,Weight,Previous Weight,chartevents
+733,Weight,Weight Change,chartevents
+225124,Weight,Unintentional weight loss >10 lbs.,chartevents
+4183,Weight,Birthweight (kg),chartevents
+226846,Weight,Feeding Weight,chartevents
