@@ -1,19 +1,5 @@
 
-"""
-Shared utilities for ICU LOS modeling & training.
 
-This module centralizes data loading, metrics, training loops, evaluation,
-and grid search. Designed to support all 5 architectures with identical
-training code for reproducibility.
-
-Usage:
-    from utils import (
-        set_seed, get_device, load_single_task_tensors, load_multitask_tensors,
-        build_class_weights, make_group_splits, SingleTaskDataset, MultitaskDataset,
-        train_eval_single_task, evaluate_single_task_test, bootstrap_single_task,
-        save_metrics_table, save_predictions_table
-    )
-"""
 
 from __future__ import annotations
 
