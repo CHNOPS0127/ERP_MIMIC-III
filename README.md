@@ -289,11 +289,11 @@ python eda.py \
 ## 5. Model Implementation & Evaluation
 
 **Procedure:**
-1. **Data Split:** 80% train, 20% test
-2. **Model Selection:** 5-fold stratified GroupKFold on training set
-3. **Hyperparameter Grid:** Learning rate [1e-4, 1e-3, 1e-2], hidden_dim [64, 128, 256]
-4. **Final Training:** Best hyperparameters on full training set
-5. **Test Evaluation:** Single evaluation on held-out test set with boostrap evaluation (N=1000)
+- **Data Split:** 80% train, 20% test
+- **Model Selection:** 5-fold stratified GroupKFold on training set
+- **Hyperparameter Grid:** Learning rate [1e-4, 1e-3, 1e-2], hidden_dim [64, 128, 256]
+- **Final Training:** Best hyperparameters on full training set
+- **Test Evaluation:** Single evaluation on held-out test set with boostrap evaluation (N=1000)
 
 ### 5.1 Baseline Models
 
