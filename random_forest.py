@@ -1,22 +1,6 @@
 #!/usr/bin/env python3
-# train_rf_los.py
-"""
-Train a Random Forest on LOS buckets using features from feature_engineering.py.
 
-Inputs (created by feature_engineering.py):
-  <root>/preprocessed/features/features_rf_train.csv
-  <root>/preprocessed/features/features_rf_test.csv
-    (or pass --use_lr_features to use features_lr_*.csv)
 
-Outputs:
-  <root>/results/RF/
-    - best_random_forest_model.pkl
-    - grid_search_results.csv
-    - random_forest_test_probabilities.csv
-    - metrics_test_bootstrap.txt (if y_true available)
-    - bootstrap_results.csv (per-iteration)
-    - bootstrap_summary_stats.csv (mean/CI/std)
-"""
 
 import os
 import argparse
@@ -211,3 +195,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
