@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
-"""
-Preprocess pipeline (coherent with events validation):
 
-1) Filter each subject's events by ITEMID list (from updated_variable_selection_I.csv),
-   and write per-subject files under <raw_root>/preprocessed/<SUBJECT_ID>/filtered_events.csv.
-
-2) Build TF-IDF features from NOTEEVENTS, select top terms by correlation with LOS and MORTALITY,
-   aggregate per SUBJECT_ID, merge with all_stays, and save tfidf_static_combined.csv.
-
-3) Build final static dataset by merging diagnoses indicators (selected ICD9 list) and
-   ADMISSIONS fields; save static_data.csv.
-
-Notes:
-- <raw_root> is the directory created by the events validation step (has subject folders,
-  all_stays.csv, all_diagnoses.csv).
-- <mimic_root> must contain NOTEEVENTS.csv and ADMISSIONS.csv.
-"""
 
 import os
 import argparse
@@ -272,3 +256,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
