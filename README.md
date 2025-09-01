@@ -19,7 +19,7 @@ This repository integrates multimodal ICU covariates from MIMIC-III through a re
 1. [System Requirements & Environment Setup](#1-system-requirements--environment-setup)
 2. [Data Access & Prerequisites](#2-data-access--prerequisites)
 3. [Complete Preprocessing Pipeline](#3-complete-preprocessing-pipeline)
-4. [Exploratory Data Analysis Reproduction](#4-exploratory-data-analysis-reproduction)
+4. [Exploratory Data Analysis](#4-exploratory-data-analysis)
 5. [Model Implementation & Evaluation](#5-model-implementation--evaluation)
 6. [Results Analysis](#6-results-analysis)
 7. [Expected Outputs](#7-expected-outputs)
@@ -536,27 +536,9 @@ ERP_ROOT/
     └── combined_datasets/
 ```
 
-### 7.2 Common Issues & Troubleshooting
-
-**Memory Issues:**
-- Reduce batch size if OOM errors occur
-- Use gradient checkpointing for large sequences
-- Process data in chunks if preprocessing fails
-
-**Performance Discrepancies:**
-- Verify identical data splits (check ICU_IDs in train/test)
-- Confirm hyperparameter settings match exactly
-- Check PyTorch/CUDA versions for consistency
-
-**Missing Dependencies:**
-- Install exact package versions if results differ
-- Use pip freeze > requirements.txt to capture exact environment
-
-
 ## Conclusion
 
-This technical appendix provides complete instructions for reproducing the multimodal ICU LOS prediction framework. Following these procedures exactly should yield performance metrics within the specified confidence intervals. The modular design allows for replication of individual components or the complete pipeline.
-
+This technical appendix provides complete instructions for reproducing the multimodal ICU LOS prediction framework. 
 For questions or issues during reproduction, refer to the codebase documentation at https://github.com/CHNOPS0127/ERP_MIMIC-III.
 
 **Estimated Total Runtime:** 12-72 hours depending on hardware configuration and selected models.
