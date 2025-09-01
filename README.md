@@ -293,9 +293,39 @@ python eda.py \
 **Procedure:**
 - **Data Split:** 80% train, 20% test
 - **Model Selection:** 5-fold stratified GroupKFold on training set
-- **Hyperparameter Grid:** Learning rate [1e-4, 1e-3, 1e-2], hidden_dim [64, 128, 256]
+- **Hyperparameter Grid:** Grid search are performed on key hyperparameters to select the best configuration
 - **Final Training:** Best hyperparameters on full training set
 - **Test Evaluation:** Single evaluation on held-out test set with boostrap evaluation (N=1000)
+
+*The best hyperparameter combinations identified during cross-validation are summarized below. All reported results were obtained by retraining with these settings.*
+
+**Hyperparameter Grid:** 
+- Baselines:
+  - Logistic Regression: C: [0.01, 0.1, 1.0]
+  - Random Forest: n_estimators: [100, 200], max_depth: [20, None], min_samples_leaf: [1, 2], class_weight: 'balanced'
+- Sequence/Multitask:
+  - Learning rate: [1e-4, 1e-3, 1e-2, 3e-3]  
+  - Hidden dim: [64, 128, 256]  
+  - Dropout: [0.2, 0.3, 0.4]  
+  - Batch size: [32, 64, 128]  
+
+**Best Configurations** 
+- Baselines:
+  - Logistic Regression: C: 1
+  - Random Forest: class_weight: 'balanced', max_depth: 20, min_samples_leaf: 1, n_estimators: 200
+- Sequence/Multitask:
+
+| Model                | Hidden Dim | Dropout Rate | Learning Rate | Batch Size |
+|---------------------|------------|--------------|---------------|------------|
+| BiLSTM-EndFuse-48   | 64         | 0.3          | 0.001         | 64         |
+| BiLSTM-AttenFuse-48 | 128        | 0.3          | 0.003         | 64         |
+| BiLSTM-EndFuse-72   | 64         | 0.3          | 0.001         | 64         |
+| BiLSTM-AttenFuse-72 | 128        | 0.3          | 0.003         | 64         |
+| BiGRU-EndFuse-48    | 128        | 0.3          | 0.003         | 128        |
+| BiGRU-AttenFuse-48  | 64         | 0.2          | 0.003         | 64         |
+| BiGRU-EndFuse-72    | 64         | 0.2          | 0.001         | 64         |
+| BiGRU-AttenFuse-72  | 64         | 0.3          | 0.003         | 32         |
+| Multitask-48        | 128        | 0.2          | 0.003         | 32         |
 
 ### 5.1 Baseline Models (§5.2)
 
@@ -313,7 +343,6 @@ python logistic_regression.py "$ERP_ROOT" \
 - **Solver:** LBFGS for multiclass problems
 - **Feature Selection:** RFECV with 5-fold stratified CV
 - **Class Balancing:** Class-weighted loss function
-- **Hyperparameters:** C ∈ [0.001, 0.01, 0.1, 1.0, 10.0] via grid search
 
 #### 5.1.2 Random Forest
 
@@ -329,7 +358,6 @@ python random_forest.py "$ERP_ROOT" \
 - **Splitting:** Gini impurity criterion
 - **Feature Selection:** No explicit selection (embedded in tree splits)
 - **Class Balancing:** Class-weighted sample importance
-- **Hyperparameters:** max_depth ∈ [10, 20, None], min_samples_split ∈ [2, 5, 10]
 
 ### 5.2 Sequence Models (§5.3)
 
@@ -356,7 +384,7 @@ python bilstm_endfuse.py \
 ```
 
 **Architecture Details:**
-- **Encoder:** 2-layer bidirectional LSTM (hidden_dim=128)
+- **Encoder:** 2-layer bidirectional LSTM
 - **Static MLP:** 2 layers with BatchNorm and Dropout
 - **Fusion:** Simple concatenation of final hidden state + static embedding
 - **Classifier:** Single linear layer with softmax
@@ -393,6 +421,9 @@ python bilstm_attenfuse.py \
 - **Static Gating:** Multiplicative gating with feature and gate pathways
 - **Classifier:** 2-layer MLP with residual connection
 
+**Training Configuration:**
+Training mirrors BiLSTM-EndFuse detailed above.
+
 #### 5.2.3 BiGRU-EndFuse 
 
 **Commands:**
@@ -412,6 +443,17 @@ python bigru_endfuse.py \
   --learning_rate 1e-3 \
   --seed 42
 ```
+**Architecture Details:**
+- **Encoder:** 2-layer bidirectional GRU
+- **Static MLP:** 2 layers with BatchNorm and Dropout
+- **Fusion:** Simple concatenation of final hidden state + static embedding
+- **Classifier:** Single linear layer with softmax
+
+**Training Configuration:**
+- **Optimizer:** Adam with ReduceLROnPlateau scheduler
+- **Loss:** Class-weighted cross-entropy with label smoothing
+- **Validation:** 5-fold stratified GroupKFold cross-validation
+- **Early Stopping:** Patience = 10 epochs
 
 #### 5.2.4 BiGRU-AttenFuse 
 
@@ -432,6 +474,15 @@ python bigru_attenfuse.py \
   --learning_rate 1e-3 \
   --seed 42
 ```
+**Architecture Details:**
+- **Temporal Convolutions:** Kernel sizes [3,5,7,9], 64 filters each
+- **Attention Mechanism:** Single-head attention with positional encoding
+- **Pooling Fusion:** Learnable combination of attention, mean, and max pooling
+- **Static Gating:** Multiplicative gating with feature and gate pathways
+- **Classifier:** 2-layer MLP with residual connection
+
+**Training Configuration:**
+Training mirrors BiGRU-EndFuse detailed above.
 
 ### 5.3 Multitask Framework (§5.4)
 
