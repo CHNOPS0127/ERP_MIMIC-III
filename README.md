@@ -454,7 +454,7 @@ python multitask.py \
 
 ---
 
-## 6. Results Analysis ((§7-8)
+## 6. Results Analysis (§7-8)
 
 **Command:**
 ```bash
