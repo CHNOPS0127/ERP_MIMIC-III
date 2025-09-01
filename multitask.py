@@ -1,34 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Multitask ICU LOS Trainer (uses rnn_utils.py)
 
-Tasks:
-  1) Total LOS classification (8 classes)
-  2) In-ICU mortality (binary)
-  3) Hourly remaining LOS classification (8 classes over time)
-
-Features:
-  - Group-aware train/test split by ICUSTAY_ID
-  - Small grid search over hyperparameters (GroupKFold CV)
-  - 5-fold CV with model selection via linear kappa on total LOS
-  - Final train on best params + test evaluation + bootstrap CIs
-  - Detailed CSV/JSON outputs
-
-Minimal usage:
-    python multitask_endfuse.py \
-      --X /path/X_padded_tensor.pt \
-      --y_total /path/y_total_class_tensor.pt \
-      --static /path/static_tensor.pt \
-      --seq_lengths /path/seq_lengths.pt \
-      --icu_ids /path/icu_id_list.pt \
-      --y_mort /path/y_mortality_tensor.pt \
-      --y_hourly /path/y_hourly_tensor.pt \
-      --hour_mask /path/hour_mask.pt \
-      --results_dir /path/to/results/multitask
-
-"""
 
 import os
 import json
@@ -712,3 +685,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
