@@ -136,13 +136,6 @@ Note: Step 1 (Subject Inclusion) and Step 2 (Events Validation) were adapted fro
 python extract_mimic3.py "$MIMIC3_ROOT" "$ERP_ROOT/subjects"
 ```
 
-**Process Details:**
-- Excludes patients <18 years old
-- Caps age at 90 (HIPAA compliance)
-- Filters unit transfers (FIRST_CAREUNIT ≠ LAST_CAREUNIT)
-- Removes multiple ICU stays per admission
-- Computes AGE = INTIME - DOB
-
 **Expected Outputs:**
 - `$ERP_ROOT/subjects/{SUBJECT_ID}/stays.csv`
 - `$ERP_ROOT/subjects/{SUBJECT_ID}/diagnoses.csv`
@@ -156,12 +149,6 @@ python extract_mimic3.py "$MIMIC3_ROOT" "$ERP_ROOT/subjects"
 ```bash
 python validate_events.py "$ERP_ROOT/subjects"
 ```
-
-**Process Details:**
-- Validates ADMISSION_ID and ICUSTAY_ID consistency
-- Imputes missing IDs using stays.csv mapping
-- Removes events with unreconcilable identifiers
-- Filters negative hours since ICU admission (~0.75% of events)
 
 **Expected Outputs:**
 - Updated `events.csv` files with validated identifiers
@@ -200,16 +187,6 @@ export VARMAP="resources/variable_map.csv"
 python data_cleaning.py "$ERP_ROOT"
 ```
 
-**Unit Standardization:**
-- Weight: lb, oz → kg
-- Temperature: °F → °C  
-- Pressure: mmHg standardized, etc.
-
-**Temporal Processing:**
-- Compute hours since ICU admission
-- Floor to hourly bins
-- Aggregate within bins using "last"
-
 **Expected Outputs:**
 - Hour-aligned `wide_events.csv` files
 - Unit conversion logs
@@ -223,21 +200,6 @@ python data_cleaning.py "$ERP_ROOT"
 ```bash
 python final_preprocessing.py "$ERP_ROOT"
 ```
-
-**Imputation Strategy:**
-1. **Forward filling** within each encounter
-2. **ICU-wide median** for variables without prior values  
-3. **Binary missing masks** to preserve missingness information
-
-**Static Data Processing:**
-- Categorical variables: One-hot encoding
-- Ordinal variables (GCS): Ordinal encoding  
-- Continuous variables: Z-score standardization
-- Missing categories encoded as separate classes
-
-**Exclusion Criteria:**
-- ICU stays ≤4 hours (insufficient for robust prediction)
-- Encounters with >95% missing data
 
 **Expected Outputs:**
 - `$ERP_ROOT/preprocessed/dynamic_data.csv`
