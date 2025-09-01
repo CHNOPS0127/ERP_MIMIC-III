@@ -64,7 +64,6 @@ source .venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 
 # Install dependencies
-```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
