@@ -1,25 +1,5 @@
 #!/usr/bin/env python3
-r"""
-bigru_endfuse.py — BiGRU + EndFuse (static fusion) for LOS bucket classification.
 
-Requires: rnn_utils.py in the same folder (or importable on PYTHONPATH).
-
-Inputs (tensor files you already created):
-  --X_path              e.g. ...\preprocessed\tensor\X_padded_tensor_48.pt
-  --y_total_class_path  e.g. ...\preprocessed\tensor\y_total_class_tensor_48.pt
-  --static_path         e.g. ...\preprocessed\tensor\static_tensor_48.pt
-  --seq_lengths_path    e.g. ...\preprocessed\tensor\seq_lengths_48.pt
-  --icu_ids_path        e.g. ...\preprocessed\tensor\icu_id_list_48.pt
-
-Outputs:
-  <results_dir>\ 
-    - los_cv_metrics_summary.csv
-    - los_cv_predictions.csv
-    - best_cv_model.pt
-    - best_test_predictions.csv
-    - test_metrics_summary.csv
-    - test_bootstrap_summary.csv
-"""
 
 import os
 import argparse
@@ -231,3 +211,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
