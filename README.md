@@ -311,8 +311,6 @@ python logistic_regression.py "$ERP_ROOT"
 - **Class Balancing:** Class-weighted loss function
 - **Hyperparameters:** C ∈ [0.001, 0.01, 0.1, 1.0, 10.0] via grid search
 
-**Expected Performance:** κ = 0.6451 (95% CI: 0.6343-0.6563)
-
 #### 5.1.2 Random Forest
 
 **Command:**
@@ -326,8 +324,6 @@ python random_forest.py "$ERP_ROOT"
 - **Feature Selection:** No explicit selection (embedded in tree splits)
 - **Class Balancing:** Class-weighted sample importance
 - **Hyperparameters:** max_depth ∈ [10, 20, None], min_samples_split ∈ [2, 5, 10]
-
-**Expected Performance:** κ = 0.6558 (95% CI: 0.6448-0.6673)
 
 ### 5.2 Sequence Models
 
@@ -365,10 +361,6 @@ python bilstm_endfuse.py \
 - **Validation:** 5-fold stratified GroupKFold cross-validation
 - **Early Stopping:** Patience = 10 epochs
 
-**Expected Performance:**
-- 48h: κ = 0.7092 (95% CI: 0.6991-0.7188)
-- 72h: κ = 0.8142 (95% CI: 0.8070-0.8210)
-
 #### 5.2.2 BiLSTM-AttenFuse
 
 **Command:**
@@ -394,10 +386,6 @@ python bilstm_attenfuse.py \
 - **Pooling Fusion:** Learnable combination of attention, mean, and max pooling
 - **Static Gating:** Multiplicative gating with feature and gate pathways
 - **Classifier:** 2-layer MLP with residual connection
-
-**Expected Performance:**
-- 48h: κ = 0.7126 (95% CI: 0.7032-0.7219)
-- 72h: κ = 0.8235 (95% CI: 0.8192-0.8303) **[Best Overall]**
 
 #### 5.2.3 BiGRU Models
 
@@ -433,10 +421,6 @@ python bigru_attenfuse.py \
 - Same fusion strategies as LSTM counterparts
 - Better performance on 48h window due to simpler architecture
 
-**Expected Performance:**
-- BiGRU-EndFuse 48h: κ = 0.7102 (95% CI: 0.7006-0.7201)
-- BiGRU-AttenFuse 48h: κ = 0.7209 (95% CI: 0.7103-0.7311)
-
 ### 5.3 Multitask Framework
 
 **Command:**
@@ -466,11 +450,6 @@ python multitask.py \
   - Mortality: Single linear layer → binary classification  
   - Hourly LOS: Time-distributed MLP → per-timestep prediction
 - **Loss Function:** Weighted sum (λ_total = λ_mort = λ_hourly = 1.0)
-
-**Expected Performance:**
-- Total LOS: κ = 0.7171 (95% CI: 0.7077-0.7272)
-- Hourly LOS: κ = 0.5716 (95% CI: 0.5597-0.5852) 
-- Mortality: AUC-ROC = 0.9556, AUC-PR = 0.8084
 
 ---
 
