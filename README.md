@@ -393,7 +393,7 @@ python bilstm_attenfuse.py \
 - **Static Gating:** Multiplicative gating with feature and gate pathways
 - **Classifier:** 2-layer MLP with residual connection
 
-#### 5.2.3 BiGRU Models
+#### 5.2.3 BiGRU-EndFuse 
 
 **Commands:**
 ```bash
@@ -411,8 +411,13 @@ python bigru_endfuse.py \
   --batch_size 64 \
   --learning_rate 1e-3 \
   --seed 42
+```
 
-# AttenFuse  
+#### 5.2.4 BiGRU-AttenFuse 
+
+**Commands:**
+```bash
+# AttenFuse
 python bigru_attenfuse.py \
   --X_path "$TENSOR_DIR/X_padded_tensor_${TW}.pt" \
   --y_total_class_path "$TENSOR_DIR/y_total_class_tensor_${TW}.pt" \
